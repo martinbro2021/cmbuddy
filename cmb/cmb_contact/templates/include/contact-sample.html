@@ -1,0 +1,66 @@
+<style>
+  #contact-section .invalid {
+    background-color: #ffdddd;
+  }
+  #contact-section .valid {
+    background-color: #ddffdd;
+  }
+</style>
+<div class="w3-content w3-text-grey" id="contact-section">
+  {% if validation %}
+  <p class="w3-input w3-padding-16 w3-border invalid">
+    <b>Please fill in these fields correctly.</b>
+  </p>
+  {% endif %}
+  <div class="w3-section">{{ snippets.contact_invitation | safe}}</div>
+  <!-- todo add required fields -->
+  <!-- todo add titles (hints) -->
+  <form action="/contact/" id="contact-form" method="post">
+    {% csrf_token %}
+    <p>
+      <input
+        name="name"
+        class="w3-input w3-padding-16 w3-border _pow_relevant"
+        placeholder="Name*"
+        title="Enter your name here"
+        type="text"
+        required
+        value="{{ user.name }}"
+      />
+    </p>
+    <p>
+      <input
+        name="email"
+        class="w3-input w3-padding-16 w3-border {{ validation.email }} _pow_relevant"
+        required
+        placeholder="Email*"
+        title="Enter your email address here"
+        type="text"
+        value="{{ user.email }}"
+      />
+    </p>
+    <p>
+      <input
+        name="subject"
+        class="w3-input w3-padding-16 w3-border _pow_relevant"
+        placeholder="Subject"
+        title="Enter the subject of your message here"
+        type="text"
+        value="{{ user.subject }}"
+      />
+    </p>
+    <p>
+      <textarea
+        name="message"
+        class="w3-input w3-padding-16 w3-border _pow_relevant"
+        required
+        placeholder="Message*"
+        rows="3"
+        title="Enter your message here"
+      >
+{{user.message}}</textarea
+      >
+    </p>
+    {% include "include/captcha-sample.html" %}
+  </form>
+</div>

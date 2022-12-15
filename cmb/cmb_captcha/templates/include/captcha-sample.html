@@ -1,0 +1,41 @@
+{% load static %}
+<script src="{% static 'js/pow.js' %}"></script>
+
+<p>
+  <img
+    alt="captcha"
+    class="w3-border"
+    src="data:image/png;base64,{{ captcha.img }}"
+    style="display: inline-block; height: 56.6px; width: 49%"
+  />
+  <input
+    class="w3-input w3-padding-16 w3-border w3-right {{ validation.captcha }} _pow_relevant"
+    id="captcha-input"
+    name="captcha"
+    required
+    placeholder="← Those characters*"
+    style="width: 49%; display: inline-block"
+    title="Enter the captcha you see on the left"
+    type="text"
+    minlength="{{ captcha.digits }}"
+    maxlength="{{ captcha.digits }}"
+  />
+</p>
+
+<input id="pow" name="pow" style="display: none" type="text" />
+<input name="uuid" style="display: none" type="text" value="{{ captcha.uuid }}" />
+
+<p>
+  <button
+    class="w3-button w3-light-grey w3-padding-large"
+    id="btn-send-msg"
+    onclick="
+      const pow_difficulty='{{captcha.difficulty}}';
+      cForm.onSubmit(this, parseInt(pow_difficulty))
+      "
+    title="Send your message"
+  >
+    <i class="fa fa-paper-plane w3-opacity"></i>
+    &nbsp;&nbsp;SEND
+  </button>
+</p>

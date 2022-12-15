@@ -1,0 +1,10 @@
+<header class="w3-container w3-center" style="padding: 64px 16px">
+  {% if snippets.home_signature %}
+  <img style="opacity: 0.75; width: 80%" src="{{ snippets.home_signature }}" />
+  {% else %}
+  <h1 class="w3-jumbo"><b>{{snippets.home_header | safe}}</b></h1>
+  {% endif %}
+  <p class="w3-opacity">{{snippets.home_description | safe}}</p>
+  <!--  -->
+  {% include "include/portrait-small-medium.html" %}
+</header>

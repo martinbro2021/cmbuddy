@@ -1,0 +1,49 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+}
+
+.w3-row-padding img {
+  margin-bottom: 12px;
+}
+
+hr {
+  border-width: 3px;
+}
+
+.grayscale-85 {
+  filter: gray; /* IE */
+  -webkit-filter: grayscale(0.85); /* Old WebKit */
+  -webkit-filter: grayscale(85%); /* New WebKit */
+  filter: url(resources.svg#desaturate); /* older Firefox */
+  filter: grayscale(85%); /* Current draft standard */
+  opacity: 60%;
+}
+.grayscale-50 {
+  filter: gray; /* IE */
+  -webkit-filter: grayscale(0.5); /* Old WebKit */
+  -webkit-filter: grayscale(50%); /* New WebKit */
+  filter: url(resources.svg#desaturate); /* older Firefox */
+  filter: grayscale(50%); /* Current draft standard */
+  opacity: 90%;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #7e7e7e;
+}
+::-webkit-scrollbar-thumb {
+  background: #cfcfcf;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #888888;
+  border-radius: 4px;
+}
