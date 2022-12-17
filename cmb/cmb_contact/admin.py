@@ -1,24 +1,19 @@
 from django.contrib import admin
 from cmb_home.admin import ContentAdmin
-from cmb_home.models import Content
+from cmb_home.models import LocatedContent
 
 
-class ContactContent(Content):
-    REFERENCE = "contact"
+class ContactContent(LocatedContent):
+    locate = "contact"
 
     class Meta:
         proxy = True
-        verbose_name = "content"
-        verbose_name_plural = "content"
-
-    def save(self, *args, **kwargs):
-        if not self.reference:
-            self.reference = self.REFERENCE
-        return super().save(*args, **kwargs)
+        verbose_name = "content (contact)"
+        verbose_name_plural = "content (contact)"
 
 
 class ContactContentAdmin(ContentAdmin):
-    filter_queryset_prefix = ContactContent.REFERENCE
+    locate = ContactContent.locate
 
 
 admin.site.register(ContactContent, ContactContentAdmin)

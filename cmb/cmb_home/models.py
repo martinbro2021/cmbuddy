@@ -41,14 +41,16 @@ class Content(models.Model):
     position = models.IntegerField(default=0)
     reference = models.TextField(max_length=255)
     published = models.DateField(verbose_name="Date published", null=True, blank=True)
+    updated = models.DateField(verbose_name="Date updated", auto_now=True)
     created = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Content"
+        verbose_name_plural = "Content"
 
     def save(self, *args, **kwargs):
         self.html = md.convert(self.text)
         return super().save(*args, **kwargs)
-
-    class Meta:
-        verbose_name_plural = "Content"
 
     @classmethod
     def get_context(cls, reference: str):  # todo implement key
@@ -61,6 +63,22 @@ class Content(models.Model):
     @property
     def digest(self):
         return "[NO TEXT]" if not self.text else trim(self.text)
+
+
+class LocatedContent(Content):
+    locate = "UNSET"
+
+    class Meta:
+        proxy = True
+        verbose_name = "Content (located)"
+        verbose_name_plural = "Content (located)"
+
+    def save(self, *args, **kwargs):
+        if not self.reference and self.locate == "UNSET":
+            logger.error(f"Attribute locate was not set for {repr(self)}")
+        elif not self.reference:
+            self.reference = self.locate
+        return super().save(*args, **kwargs)
 
 
 # noinspection PyTypeChecker

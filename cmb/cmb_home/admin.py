@@ -3,7 +3,7 @@ from django.template import loader
 from django.contrib import admin
 from django.template import loader
 from django.utils.safestring import mark_safe
-from .models import Content, Link, File, Snippet
+from .models import LocatedContent, Link, File, Snippet
 import logging
 
 logger = logging.getLogger(__name__)
@@ -27,26 +27,40 @@ class ContentAdmin(ImplicitModelAdmin):
     exclude_in_list = ("id", "html", "reference", "text")
     exclude_in_editor = ("id", "html", "reference")
     readonly_fields = ("preview",)
-    filter_queryset_prefix = "home"
+    locate = "UNSET"
 
     def preview(self, obj):
-        template = loader.get_template("preview.html")
+        template = loader.get_template("previews/description.html")
         temp = template.render({"preview": obj.html}).replace("\"", "'")
         html = f'<iframe style="width:75%; hight: 350px;" srcdoc="{temp}"></iframe>'
         return mark_safe(html)
     preview.short_description = "Preview"
 
     def get_queryset(self, _):
-        return self.model.objects.filter(reference__startswith=self.filter_queryset_prefix)
+        if self.locate == "UNSET":
+            logger.error("You must set the locate attribute")
+        return self.model.objects.filter(reference__startswith=self.locate)
+
+
+class HomeContentAdmin(ContentAdmin):
+    locate = "home"
+
+
+class HomeContent(LocatedContent):
+
+    class Meta:
+        proxy = True
+        verbose_name = "content (home)"
+        verbose_name_plural = "content (home)"
 
 
 class FileAdmin(ImplicitModelAdmin):
     exclude_in_editor = ("description_html",)
-    exclude_in_list = ("description_html",)
+    exclude_in_list = ("description_html", "__str__")
     readonly_fields = ("preview",)
 
     def preview(self, obj):
-        html = f'<img style="width:250px; height:250px" src={obj.url} />'
+        html = f'<img style="width:400px;" src={obj.url} />'
         return mark_safe(html)
 
     preview.short_description = "Preview"
@@ -71,7 +85,7 @@ def register_automatically(standard_model_admin):
             pass
 
 
-admin.site.register(Content, ContentAdmin)
+admin.site.register(HomeContent, HomeContentAdmin)
 admin.site.register(File, FileAdmin)
 admin.site.register(Link, LinkAdmin)
 admin.site.register(Snippet, SnippetAdmin)

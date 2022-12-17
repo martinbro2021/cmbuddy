@@ -28,7 +28,7 @@ LINK_MOCKUP = {
 SNIPPET_MOCKUP = {
     "title": "John Doe",
     "home_header": "John<br/>Doe",
-    "home_description": "astronaut • artist",
-    "home_description_2": "**John Doe**<br>astronaut • artist",
-    "home_signature_2": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Arthur_Miller_signature.svg"
+    "home_description": "**John Doe**<br>astronaut • artist",
+    "home_description_2": "astronaut • artist",
+    "home_signature": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Arthur_Miller_signature.svg"
 }
