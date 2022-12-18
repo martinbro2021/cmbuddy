@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path("", views.contact),
-    path("success_<timestamp>", views.success, name="send-success")
+    path("success/<timestamp>", views.success, name="send-success")
 ]

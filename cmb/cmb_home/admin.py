@@ -50,8 +50,8 @@ class HomeContent(LocatedContent):
 
     class Meta:
         proxy = True
-        verbose_name = "content (home)"
-        verbose_name_plural = "content (home)"
+        verbose_name = "content (/home)"
+        verbose_name_plural = "content (/home)"
 
 
 class FileAdmin(ImplicitModelAdmin):

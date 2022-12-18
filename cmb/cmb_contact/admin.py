@@ -8,8 +8,8 @@ class ContactContent(LocatedContent):
 
     class Meta:
         proxy = True
-        verbose_name = "content (contact)"
-        verbose_name_plural = "content (contact)"
+        verbose_name = "content (/contact)"
+        verbose_name_plural = "content (/contact)"
 
 
 class ContactContentAdmin(ContentAdmin):
