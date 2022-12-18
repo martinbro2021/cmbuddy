@@ -1,4 +1,6 @@
 SNIPPET_MOCKUP = {
+    "contact_title": "Contact",
+    "contact_success_title": "Message sent",
     "contact_header": "Contact Me",
     "contact_invitation": "Leave a greeting or ask me a question.",
     "contact_success": "Message Sent"
