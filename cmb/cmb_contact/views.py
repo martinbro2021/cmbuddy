@@ -7,7 +7,6 @@ from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
 from django.template import loader
 from django.shortcuts import redirect
 
-from cmb_sample.settings import DEBUG
 import cmb_home.views
 import cmb_contact.captcha_wrapper
 from cmb_captcha.cmb_captcha import ProofOfWorkException
@@ -24,10 +23,6 @@ def contact(request: HttpRequest) -> HttpResponse:
 
     if request.method == "GET":
         return HttpResponse(template.render(context, request))
-
-    elif request.method == "POST" and DEBUG and request.POST["name"] == "John Doe":
-        logger.info(f"post: {time.time()}")
-        return redirect("send-success", timestamp=hex(int(time.time()))[2:])
 
     elif request.method == "POST":
         try:
