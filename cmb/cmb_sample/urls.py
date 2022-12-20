@@ -5,6 +5,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+admin.sites.AdminSite.site_header = 'CMBuddy admin'
+admin.sites.AdminSite.site_title = 'CMBuddy admin'
+admin.sites.AdminSite.index_title = 'CMBuddy admin index'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("cmb_home.urls")),

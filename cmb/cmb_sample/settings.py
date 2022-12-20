@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management.utils import get_random_secret_key
+from cmb_sample import config
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +21,10 @@ elif not SECRET_KEY:
     SECRET_KEY = get_random_secret_key()
 
 INSTALLED_APPS = [
+    'sslserver',
+    'tinymce',
+    'django_cleanup.apps.CleanupConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -27,10 +32,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_cleanup.apps.CleanupConfig',
-
-    'sslserver',
-    'tinymce',
 
     'cmb_home',
     'cmb_contact',
@@ -135,10 +136,10 @@ TINYMCE_DEFAULT_CONFIG = {
     "menubar": False,
     "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,"
     "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,"
-    "code,help,wordcount",
+    "code,help,wordcount,hr",
     "toolbar": "undo redo | searchreplace | formatselect | "
-    "forecolor backcolor |"
-    "bold italic | link | bullist numlist outdent indent | "
+    "forecolor backcolor|"
+    "bold italic | link hr | bullist numlist outdent indent | "
     "removeformat | help fullscreen | ",
 }
 
@@ -146,3 +147,8 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = config.EMAIL_HOST
+    EMAIL_HOST_USER = config.EMAIL_HOST_USER
+    EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
+    EMAIL_PORT = config.EMAIL_PORT
+    EMAIL_USE_TLS = config.EMAIL_USE_TLS
