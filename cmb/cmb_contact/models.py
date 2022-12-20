@@ -20,7 +20,7 @@ class ContactContent(models.Model):
 
     # noinspection PyUnresolvedReferences
     @classmethod
-    def get_context(cls, reference=default_reference):
+    def get_context(cls, reference=default_reference) -> dict:
         return {"content": sorted(cls.objects.filter(reference=reference), key=lambda obj: obj.position)}
 
     @classmethod
@@ -29,5 +29,5 @@ class ContactContent(models.Model):
 
     # noinspection PyTypeChecker
     @property
-    def digest(self):
+    def digest(self) -> str:
         return "[NO TEXT]" if not self.html else trim(self.html)
