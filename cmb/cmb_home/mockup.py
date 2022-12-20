@@ -9,6 +9,10 @@ logger = logging.getLogger(__name__)
 AUTO_IMPORT = ["cmb_contact", "cmb_home"]
 
 
+class NoMockupException(Exception):
+    pass
+
+
 def auto_import(cls) -> dict:
     """Imports mockup data from the given paths automatically."""
     imports = {}
@@ -16,15 +20,18 @@ def auto_import(cls) -> dict:
         try:
             module = importlib.import_module(f"{name}.mockups", package=None)
             imports |= getattr(module, cls.__name__.upper() + "_MOCKUP")
-        except ModuleNotFoundError | AttributeError as ex:
-            logger.warning(ex.__class__.__name__ + str(ex))
+        except (ModuleNotFoundError, AttributeError) as ex:
+            logger.info(str(ex))
     return imports
 
 
 def mockup_snippets(cls):
     """Adds mockup data for snippet model."""
+    mocks = auto_import(cls)
+    if not mocks:
+        raise NoMockupException
+
     if cls.objects.count() == 0:
-        mocks = auto_import(cls)
         for k, v in mocks.items():
             s = cls()
             s.key, s.value = k, v
@@ -35,8 +42,11 @@ def mockup_snippets(cls):
 
 def mockup_settings(cls):
     """Adds mockup data for setting model."""
+    mocks = auto_import(cls)
+    if not mocks:
+        raise NoMockupException
+
     if cls.objects.count() == 0:
-        mocks = auto_import(cls)
         for k, v in mocks.items():
             s = cls()
             s.key, s.value = k, v
@@ -47,8 +57,11 @@ def mockup_settings(cls):
 
 def mockup_links(cls):
     """Adds mockup data for link model."""
+    mocks = auto_import(cls)
+    if not mocks:
+        raise NoMockupException
+
     if cls.objects.count() == 0:
-        mocks = auto_import(cls)
         for k, v in mocks.items():
             link = cls()
             link.target, link.url = k, v
@@ -57,26 +70,32 @@ def mockup_links(cls):
     return False
 
 
+def mockup_content(cls) -> bool:
+    """Adds mockup data for the content model."""
+    mocks = auto_import(cls)
+    if not mocks:
+        raise NoMockupException
+
+    if cls.objects.count() == 0:
+        for _, entry in mocks.items():
+            content = cls()
+            for key, value in entry.items():
+                if not hasattr(content, key):
+                    logger.warning(f"Unknown key: {cls.__name__}.{key}")
+                setattr(content, key, value)
+            content.save()
+        return True
+    return False
+
+
 def mockup_files(cls):
     """Adds mockup data for file model."""
+    # todo add auto import mockups
     if cls.objects.count() == 0:
         file_object = cls()
         with open(BASE_DIR / "media/sample_portrait.jpg", "rb") as file:
             file_object.file = DjangoFile(file)
             file_object.identifier = "portrait_01"
             file_object.save()
-        return True
-    return False
-
-
-def mockup_content(cls) -> bool:
-    """Adds mockup data for the content model."""
-    if cls.objects.count() == 0:
-        mocks = auto_import(cls)
-        for _, entry in mocks.items():
-            content = cls()
-            for key, value in entry.items():
-                setattr(content, key, value)
-            content.save()
         return True
     return False

@@ -8,24 +8,20 @@ from cmb_home.my_markdown import md
 from cmb_sample.settings import MEDIA_URL
 
 
-class MyModel(models.Model):
-    content = HTMLField()
-
-
 logger = logging.getLogger(__name__)
-MAX_DIGEST_LEN = 50
+MAX_DIGEST_LEN = 100
 
 
 def trim(_str: str) -> str:
     return _str[:MAX_DIGEST_LEN] + (" [...]" if len(_str) > MAX_DIGEST_LEN else "")
 
 
-# noinspection PyUnresolvedReferences
 class Snippet(models.Model):
     key = models.CharField(max_length=127, primary_key=True)
     value = models.TextField(max_length=4095)
     html = models.TextField(max_length=8191)
 
+    # noinspection PyUnresolvedReferences
     @classmethod
     def get_context(cls):
         return {
@@ -53,28 +49,18 @@ class Setting(models.Model):
         return f"Setting: <{self.key}>"
 
 
-# noinspection PyUnresolvedReferences
-class Content(models.Model):
-    text = models.TextField(max_length=32767, blank=True)
-    html = models.TextField(max_length=65535)
-    header = models.CharField(max_length=255, blank=True)
-    position = models.IntegerField(default=0)
-    reference = models.TextField(max_length=255)
-    published = models.DateField(verbose_name="Date published", null=True, blank=True)
-    updated = models.DateField(verbose_name="Date updated", auto_now=True)
-    created = models.DateField(auto_now_add=True)
+class HomeContent(models.Model):
+    html = HTMLField()
+    position = models.PositiveIntegerField(default=10, verbose_name="vertical position")
 
     class Meta:
-        verbose_name = "Content"
-        verbose_name_plural = "Content"
+        verbose_name = "content (/home)"
+        verbose_name_plural = "content (/home)"
 
-    def save(self, *args, **kwargs):
-        self.html = md.convert(self.text)
-        return super().save(*args, **kwargs)
-
+    # noinspection PyUnresolvedReferences
     @classmethod
-    def get_context(cls, reference: str):
-        return {"content": sorted(cls.objects.filter(reference=reference), key=lambda obj: obj.position)}
+    def get_context(cls):
+        return {"content": sorted(cls.objects.all(), key=lambda obj: obj.position)}
 
     @classmethod
     def mockup(cls) -> bool:
@@ -83,23 +69,7 @@ class Content(models.Model):
     # noinspection PyTypeChecker
     @property
     def digest(self):
-        return "[NO TEXT]" if not self.text else trim(self.text)
-
-
-class LocatedContent(Content):
-    locate = "UNSET"
-
-    class Meta:
-        proxy = True
-        verbose_name = "Content (located)"
-        verbose_name_plural = "Content (located)"
-
-    def save(self, *args, **kwargs):
-        if not self.reference and self.locate == "UNSET":
-            logger.error(f"Attribute locate was not set for {repr(self)}")
-        elif not self.reference:
-            self.reference = self.locate
-        return super().save(*args, **kwargs)
+        return "[NO TEXT]" if not self.html else trim(self.html)
 
 
 # noinspection PyTypeChecker

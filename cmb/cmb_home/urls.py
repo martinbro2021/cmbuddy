@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from cmb_home import views
 
 urlpatterns = [
     path("", views.home_redirect),

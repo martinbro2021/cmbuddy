@@ -8,12 +8,12 @@ sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
 Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."""
 
 
-CONTENT_MOCKUP = {
+HOMECONTENT_MOCKUP = {
     28324921387434:  # random number, has no effect here.
-    {"header": "About",
-     "text": LOREM_IPSUM,
-     "reference": "home",
-     },
+    {
+        "html": f"<h2>About</h2><p>{LOREM_IPSUM}</p>",
+        "warning": "this should raise a warning"
+    },
 }
 
 LINK_MOCKUP = {
@@ -26,11 +26,11 @@ LINK_MOCKUP = {
 }
 
 SNIPPET_MOCKUP = {
-    "title": "John Doe",
+    "home_title": "John Doe",
     "home_header": "John<br/>Doe",
     "home_description": "**John Doe**<br>astronaut • artist",
     "home_description_2": "astronaut • artist",
-    "home_signature": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Arthur_Miller_signature.svg"
+    "home_header_svg": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Arthur_Miller_signature.svg"
 }
 
 SETTING_MOCKUP = {}

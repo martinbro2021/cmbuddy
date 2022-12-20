@@ -5,9 +5,19 @@ from django.contrib import admin
 from django.template import loader
 from django.utils.safestring import mark_safe
 
-from .models import File, Link, LocatedContent, Snippet
+from cmb_home.models import File, Link, Snippet, HomeContent
 
 logger = logging.getLogger(__name__)
+
+
+class PreviewMixin:
+    # todo check usage
+    def preview(self, obj):
+        template = loader.get_template("previews/description.html")
+        temp = template.render({"preview": obj.html}).replace("\"", "'")
+        html = f'<iframe style="width:75%; hight: 350px;" srcdoc="{temp}"></iframe>'
+        return mark_safe(html)
+    preview.short_description = "Preview"
 
 
 class ImplicitModelAdmin(admin.ModelAdmin):
@@ -21,38 +31,6 @@ class ImplicitModelAdmin(admin.ModelAdmin):
         self.exclude = self.exclude_in_editor
         self.list_display = self.list_display + tuple(field.name for field in model._meta.fields)
         self.list_display = tuple(filter(lambda name: name not in self.exclude_in_list, self.list_display))
-
-
-class ContentAdmin(ImplicitModelAdmin):
-    list_display = ("digest",)
-    exclude_in_list = ("id", "html", "reference", "text")
-    exclude_in_editor = ("id", "html", "reference")
-    readonly_fields = ("preview",)
-    locate = "UNSET"
-
-    def preview(self, obj):
-        template = loader.get_template("previews/description.html")
-        temp = template.render({"preview": obj.html}).replace("\"", "'")
-        html = f'<iframe style="width:75%; hight: 350px;" srcdoc="{temp}"></iframe>'
-        return mark_safe(html)
-    preview.short_description = "Preview"
-
-    def get_queryset(self, _):
-        if self.locate == "UNSET":
-            logger.error("You must set the locate attribute")
-        return self.model.objects.filter(reference__startswith=self.locate)
-
-
-class HomeContentAdmin(ContentAdmin):
-    locate = "home"
-
-
-class HomeContent(LocatedContent):
-
-    class Meta:
-        proxy = True
-        verbose_name = "content (/home)"
-        verbose_name_plural = "content (/home)"
 
 
 class FileAdmin(ImplicitModelAdmin):
@@ -74,6 +52,11 @@ class LinkAdmin(admin.ModelAdmin):
 class SnippetAdmin(ImplicitModelAdmin):
     exclude_in_editor = ("html",)
     exclude_in_list = ("html", "__str__")
+
+
+class HomeContentAdmin(ImplicitModelAdmin):
+    exclude_in_list = ("__str__", "id", "html", "position")
+    list_display = ("digest",)
 
 
 def register_automatically(model_admin):

@@ -139,10 +139,11 @@ TINYMCE_DEFAULT_CONFIG = {
     "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,"
     "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,"
     "code,help,wordcount,hr",
-    "toolbar": "undo redo | searchreplace | formatselect | "
-    "forecolor backcolor|"
-    "bold italic | link hr | bullist numlist outdent indent | "
-    "removeformat | help fullscreen | ",
+    "toolbar":  "undo redo | searchreplace | formatselect | "
+                "forecolor backcolor| "
+                "alignleft aligncenter alignright alignjustify | "
+                "bold italic | link hr | bullist numlist outdent indent | "
+                "removeformat | help fullscreen |"
 }
 
 if DEBUG:

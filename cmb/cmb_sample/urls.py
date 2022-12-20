@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from .settings import DEBUG, MEDIA_ROOT, MEDIA_URL
+from cmb_sample.settings import DEBUG, MEDIA_ROOT, MEDIA_URL
 
 admin.sites.AdminSite.site_header = 'CMBuddy admin'
 admin.sites.AdminSite.site_title = 'CMBuddy admin'

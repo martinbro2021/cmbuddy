@@ -1,14 +1,4 @@
-{% extends "admin/base.html" %} {% block title %} {% if subtitle %}
-<!--  -->
-{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }} {% endblock %}
-<!--  -->
-{% load static %}
-<!--  -->
-{% block branding %}
-<!-- <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1> -->
+{% extends "admin/base.html" %} {% block title %} {% if subtitle %} {{ subtitle }} | {% endif %}{{ title }} |
+{{site_title|default:_('Django site admin') }} {%endblock%} {%load static%} {%block branding%}
 <img src="{% static 'svg/cmbuddy.svg' %}" style="height: 120px" />
-{% endblock %}
-<!--  -->
-{% block nav-global %}
-<!--  -->
-{% endblock %}
+{%endblock%}{% block nav-global %}{%endblock%}

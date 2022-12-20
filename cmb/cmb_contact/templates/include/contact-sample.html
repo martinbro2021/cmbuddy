@@ -16,9 +16,6 @@
     <b>Please fill in these fields correctly.</b>
   </p>
   {% endif %}
-  <div class="w3-section">{{ snippets.contact_invitation | safe}}</div>
-  <!-- todo add required fields -->
-  <!-- todo add titles (hints) -->
   <form action="/contact/" id="contact-form" method="post">
     {% csrf_token %}
     <p>

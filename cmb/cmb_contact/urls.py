@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from cmb_contact import views
 
 urlpatterns = [
     path("", views.contact),
