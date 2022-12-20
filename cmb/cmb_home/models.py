@@ -6,14 +6,15 @@ from tinymce.models import HTMLField
 from cmb_home.mockup import mockup_content, mockup_files, mockup_links, mockup_settings, mockup_snippets
 from cmb_home.my_markdown import md
 from cmb_sample.settings import MEDIA_URL
+from cmb_utils.misc import HTMLFilterInnerText
 
 
 logger = logging.getLogger(__name__)
 MAX_DIGEST_LEN = 100
 
 
-def trim(_str: str) -> str:
-    return _str[:MAX_DIGEST_LEN] + (" [...]" if len(_str) > MAX_DIGEST_LEN else "")
+def trim(_str: str, trim_len: int = MAX_DIGEST_LEN) -> str:
+    return _str[:trim_len] + (" [...]" if len(_str) > trim_len else "")
 
 
 class Snippet(models.Model):
@@ -32,9 +33,9 @@ class Snippet(models.Model):
     def mockup(cls) -> bool:
         return mockup_snippets(cls)
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         self.html = md.convert(self.value)
-        return super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class Setting(models.Model):
@@ -57,7 +58,11 @@ class HomeContent(models.Model):
         verbose_name = "content (/home)"
         verbose_name_plural = "content (/home)"
 
+    def __str__(self) -> str:
+        return self.digest
+
     # noinspection PyUnresolvedReferences
+
     @classmethod
     def get_context(cls):
         return {"content": sorted(cls.objects.all(), key=lambda obj: obj.position)}
@@ -68,8 +73,13 @@ class HomeContent(models.Model):
 
     # noinspection PyTypeChecker
     @property
-    def digest(self):
-        return "[NO TEXT]" if not self.html else trim(self.html)
+    def digest(self, trim_len: int = MAX_DIGEST_LEN):
+        inner_text = ""
+        if self.html:
+            text_filter = HTMLFilterInnerText()
+            text_filter.feed(self.html)
+            inner_text = text_filter.inner_text
+        return "[NO TEXT]" if not self.html else trim(inner_text, trim_len)
 
 
 # noinspection PyTypeChecker
@@ -79,13 +89,13 @@ class Link(models.Model):
     url = models.CharField(max_length=255, blank=True)
 
     # noinspection PyUnresolvedReferences
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         if self.url:
             if self.url.count("@"):
                 self.url = "mailto:" + self.url
             elif not self.url.startswith("http"):
                 self.url = "http://" + self.url
-        return super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         _str = f"Link: {self.target} -> {self.url if self.url else '?'}"
@@ -93,7 +103,7 @@ class Link(models.Model):
 
     # noinspection PyUnresolvedReferences
     @ classmethod
-    def get_context(cls):
+    def get_context(cls) -> dict:
         return {
             "links":
                 {
@@ -108,16 +118,16 @@ class Link(models.Model):
 # noinspection PyUnresolvedReferences
 class File(models.Model):
     identifier = models.CharField(max_length=255, primary_key=True)
-    description = models.TextField(max_length=4095, blank=True)
-    description_html = models.TextField(max_length=8191, blank=True)
+    description = models.TextField(max_length=1023, blank=True)
+    description_html = models.CharField(max_length=2047, blank=True)
     file = models.FileField(null=True, blank=True)
 
-    def save(self, *args, **kwargs):
-        self.description_html = md.convert(self.description)
-        return super().save(*args, **kwargs)
+    def save(self, *args, **kwargs) -> None:
+        self.description_html = md.self.description
+        super().save(*args, **kwargs)
 
     @ classmethod
-    def get_context(cls):
+    def get_context(cls) -> dict:
         return {
             "files":
                 {file.identifier: {
@@ -131,5 +141,5 @@ class File(models.Model):
         return mockup_files(cls)
 
     @ property
-    def url(self):
+    def url(self) -> str:
         return "/" + MEDIA_URL + self.file.name if self.file else ""
