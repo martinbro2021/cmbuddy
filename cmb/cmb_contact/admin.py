@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from cmb_home.admin import ContentAdmin
 from cmb_home.models import LocatedContent
 

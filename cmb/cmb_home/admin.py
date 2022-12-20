@@ -1,10 +1,11 @@
+import logging
+
 from django.apps import apps as applications
-from django.template import loader
 from django.contrib import admin
 from django.template import loader
 from django.utils.safestring import mark_safe
-from .models import LocatedContent, Link, File, Snippet
-import logging
+
+from .models import File, Link, LocatedContent, Snippet
 
 logger = logging.getLogger(__name__)
 
@@ -75,12 +76,12 @@ class SnippetAdmin(ImplicitModelAdmin):
     exclude_in_list = ("html", "__str__")
 
 
-def register_automatically(standard_model_admin):
+def register_automatically(model_admin):
     """Registers all yet unregistered models to the admin site."""
     models = applications.get_models()
     for model in models:
         try:
-            admin.site.register(model, standard_model_admin)
+            admin.site.register(model, model_admin)
         except admin.sites.AlreadyRegistered:
             pass
 

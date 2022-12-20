@@ -1,10 +1,11 @@
 import logging
-from django.db import models
-from cmb_home.my_markdown import md
-from cmb_home.mockup import mockup_content, mockup_files, mockup_links, mockup_snippets, mockup_settings
-from cmb_sample.settings import MEDIA_URL
 
+from django.db import models
 from tinymce.models import HTMLField
+
+from cmb_home.mockup import mockup_content, mockup_files, mockup_links, mockup_settings, mockup_snippets
+from cmb_home.my_markdown import md
+from cmb_sample.settings import MEDIA_URL
 
 
 class MyModel(models.Model):
@@ -72,13 +73,14 @@ class Content(models.Model):
         return super().save(*args, **kwargs)
 
     @classmethod
-    def get_context(cls, reference: str):  # todo implement key
+    def get_context(cls, reference: str):
         return {"content": sorted(cls.objects.filter(reference=reference), key=lambda obj: obj.position)}
 
     @classmethod
     def mockup(cls) -> bool:
         return mockup_content(cls)
 
+    # noinspection PyTypeChecker
     @property
     def digest(self):
         return "[NO TEXT]" if not self.text else trim(self.text)
@@ -106,6 +108,7 @@ class Link(models.Model):
     target = models.CharField(max_length=255, primary_key=True)
     url = models.CharField(max_length=255, blank=True)
 
+    # noinspection PyUnresolvedReferences
     def save(self, *args, **kwargs):
         if self.url:
             if self.url.count("@"):
@@ -118,6 +121,7 @@ class Link(models.Model):
         _str = f"Link: {self.target} -> {self.url if self.url else '?'}"
         return trim(_str)
 
+    # noinspection PyUnresolvedReferences
     @ classmethod
     def get_context(cls):
         return {

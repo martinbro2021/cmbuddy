@@ -1,5 +1,6 @@
-from cmb_home.models import Content, Link, File, Snippet, Setting
 from django.core.management.base import BaseCommand
+
+from cmb_home.models import Content, File, Link, Setting, Snippet
 
 
 class Command(BaseCommand):
