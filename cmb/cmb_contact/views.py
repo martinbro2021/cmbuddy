@@ -11,9 +11,10 @@ import cmb_home.views
 import cmb_contact.captcha_wrapper
 from cmb_captcha.cmb_captcha import ProofOfWorkException
 from cmb_contact.captcha_wrapper import is_valid_captcha
+from cmb_contact.mail_wrapper import send_mail_wrapper
 
 logger = logging.getLogger(__name__)
-REDIRECT_TIME_DELTA = 10
+REDIRECT_TIME_DELTA = 30
 
 
 def contact(request: HttpRequest) -> HttpResponse:
@@ -46,6 +47,7 @@ def contact(request: HttpRequest) -> HttpResponse:
             context |= {"user": request.POST}
             return HttpResponse(template.render(context, request))
         else:
+            send_mail_wrapper(request.POST)
             return redirect("send-success", timestamp=hex(int(time.time()))[2:])
     else:
         return HttpResponseBadRequest()
