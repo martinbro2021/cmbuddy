@@ -1,8 +1,15 @@
 import logging
 from django.db import models
 from cmb_home.my_markdown import md
-from cmb_home.mockup import mockup_content, mockup_files, mockup_links, mockup_snippets, mockup_reference
+from cmb_home.mockup import mockup_content, mockup_files, mockup_links, mockup_snippets, mockup_settings
 from cmb_sample.settings import MEDIA_URL
+
+from tinymce.models import HTMLField
+
+
+class MyModel(models.Model):
+    content = HTMLField()
+
 
 logger = logging.getLogger(__name__)
 MAX_DIGEST_LEN = 50
@@ -31,6 +38,18 @@ class Snippet(models.Model):
     def save(self, *args, **kwargs):
         self.html = md.convert(self.value)
         return super().save(*args, **kwargs)
+
+
+class Setting(models.Model):
+    key = models.CharField(max_length=255, primary_key=True)
+    value = models.CharField(max_length=255)
+
+    @classmethod
+    def mockup(cls) -> bool:
+        return mockup_settings(cls)
+
+    def __str__(self) -> str:
+        return f"Setting: <{self.key}>"
 
 
 # noinspection PyUnresolvedReferences
@@ -84,7 +103,6 @@ class LocatedContent(Content):
 # noinspection PyTypeChecker
 # noinspection PyUnresolvedReference
 class Link(models.Model):
-    objects = None
     target = models.CharField(max_length=255, primary_key=True)
     url = models.CharField(max_length=255, blank=True)
 
@@ -97,7 +115,7 @@ class Link(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self) -> str:
-        _str = f"{self.target} -> {self.url}"
+        _str = f"Link: {self.target} -> {self.url if self.url else '?'}"
         return trim(_str)
 
     @ classmethod

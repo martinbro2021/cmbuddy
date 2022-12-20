@@ -32,3 +32,5 @@ SNIPPET_MOCKUP = {
     "home_description_2": "astronaut • artist",
     "home_signature": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Arthur_Miller_signature.svg"
 }
+
+SETTING_MOCKUP = {}

@@ -33,6 +33,18 @@ def mockup_snippets(cls):
     return False
 
 
+def mockup_settings(cls):
+    """Adds mockup data for setting model."""
+    if cls.objects.count() == 0:
+        mocks = auto_import(cls)
+        for k, v in mocks.items():
+            s = cls()
+            s.key, s.value = k, v
+            s.save()
+        return True
+    return False
+
+
 def mockup_links(cls):
     """Adds mockup data for link model."""
     if cls.objects.count() == 0:
@@ -63,21 +75,8 @@ def mockup_content(cls) -> bool:
         mocks = auto_import(cls)
         for _, entry in mocks.items():
             content = cls()
-            content.header = entry["header"]
-            content.text = entry["text"]
-            content.reference = entry["reference"]
+            for key, value in entry.items():
+                setattr(content, key, value)
             content.save()
-        return True
-    return False
-
-
-def mockup_reference(cls) -> bool:
-    """Adds mockup data for reference model."""
-    if cls.objects.count() == 0:
-        mocks = auto_import(cls)
-        for _, ref in mocks.items():
-            reference = cls()
-            reference.name = ref
-            reference.save()
         return True
     return False

@@ -12,6 +12,6 @@ Remove-Item .\cmb\db.sqlite3
 python .\cmb\manage.py makemigrations cmb_home
 python .\cmb\manage.py makemigrations cmb_contact
 python .\cmb\manage.py migrate
-python .\cmb\manage.py hmock
+python .\cmb\manage.py mockup
 python .\cmb\manage.py createadmin
 python .\cmb\manage.py runsslserver localhost:443

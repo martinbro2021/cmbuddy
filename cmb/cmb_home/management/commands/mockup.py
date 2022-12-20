@@ -1,4 +1,4 @@
-from cmb_home.models import Content, Link, File, Snippet
+from cmb_home.models import Content, Link, File, Snippet, Setting
 from django.core.management.base import BaseCommand
 
 
@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = 'Populates DB with some test data'
 
     def handle(self, *args, **options):
-        for cls in (Snippet, Content, File, Link):
+        for cls in (Snippet, Content, File, Link, Setting):
             try:
                 if cls.mockup():
                     self.stdout.write(self.style.SUCCESS(
