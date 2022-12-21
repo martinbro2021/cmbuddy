@@ -1,17 +1,11 @@
-from html.parser import HTMLParser
+from cmb_utils.misc import HTMLFilterInnerText
+
 
 MAX_DIGEST_LEN = 100
 
 
 def trim(_str: str, trim_len: int = MAX_DIGEST_LEN) -> str:
     return _str[:trim_len] + (" [...]" if len(_str) > trim_len else "")
-
-
-class HTMLFilterInnerText(HTMLParser):
-    inner_text = ""
-
-    def handle_data(self, data) -> None:
-        self.inner_text += data
 
 
 class DigestMixin:

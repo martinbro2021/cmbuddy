@@ -1,16 +1,10 @@
-# todo remove?
-
-# class ContactContent(LocatedContent):
-#     locate = "contact"
-
-#     class Meta:
-#         proxy = True
-#         verbose_name = "content (/contact)"
-#         verbose_name_plural = "content (/contact)"
+from cmb_contact.models import ContactContent
+from django.contrib import admin
+from cmb_utils.misc import ImplicitModelAdmin
 
 
-# class ContactContentAdmin(ContentAdmin):
-#     locate = ContactContent.locate
+class ContactContentAdmin(admin.ModelAdmin):
+    list_display = ("digest",)
 
 
-# admin.site.register(ContactContent, ContactContentAdmin)
+admin.site.register(ContactContent, ContactContentAdmin)

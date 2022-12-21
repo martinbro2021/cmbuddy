@@ -1,9 +1,12 @@
+from cmb_contact.admin import *  # do not remove - force to register first
+
 import logging
 
 from django.apps import apps as applications
 from django.contrib import admin
 from django.template import loader
 from django.utils.safestring import mark_safe
+from cmb_utils.misc import ImplicitModelAdmin
 
 from cmb_home.models import File, Link, Snippet, HomeContent
 
@@ -15,22 +18,9 @@ class PreviewMixin:
     def preview(self, obj):
         template = loader.get_template("previews/description.html")
         temp = template.render({"preview": obj.html}).replace("\"", "'")
-        html = f'<iframe style="width:75%; hight: 350px;" srcdoc="{temp}"></iframe>'
+        html = f'<iframe style="width:100%; height: 400px" srcdoc="{temp}"></iframe>'
         return mark_safe(html)
     preview.short_description = "Preview"
-
-
-class ImplicitModelAdmin(admin.ModelAdmin):
-    """Implicitly registers all fields except for the id field for displaying and editing."""
-    exclude_in_list = ("id",)
-    exclude_in_editor = ("id",)
-
-    # noinspection PyProtectedMember
-    def __init__(self, model, admin_site) -> None:
-        super().__init__(model, admin_site)
-        self.exclude = self.exclude_in_editor
-        self.list_display = self.list_display + tuple(field.name for field in model._meta.fields)
-        self.list_display = tuple(filter(lambda name: name not in self.exclude_in_list, self.list_display))
 
 
 class FileAdmin(ImplicitModelAdmin):
@@ -54,9 +44,9 @@ class SnippetAdmin(ImplicitModelAdmin):
     exclude_in_list = ("html", "__str__")
 
 
-class HomeContentAdmin(ImplicitModelAdmin):
-    exclude_in_list = ("__str__", "id", "html", "position")
+class HomeContentAdmin(admin.ModelAdmin, PreviewMixin):
     list_display = ("digest",)
+    readonly_fields = ("preview",)
 
 
 def register_automatically(model_admin) -> None:
@@ -73,4 +63,9 @@ admin.site.register(HomeContent, HomeContentAdmin)
 admin.site.register(File, FileAdmin)
 admin.site.register(Link, LinkAdmin)
 admin.site.register(Snippet, SnippetAdmin)
+
 register_automatically(ImplicitModelAdmin)
+
+admin.sites.AdminSite.site_header = 'CMBuddy admin'
+admin.sites.AdminSite.site_title = 'CMBuddy admin'
+admin.sites.AdminSite.index_title = 'Index'

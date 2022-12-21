@@ -1,12 +1,13 @@
 import importlib
 import logging
+from pathlib import Path
 
 from django.core.files import File as DjangoFile
 
-from cmb_sample.settings import BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent.parent
+AUTO_IMPORT = ["cmb_contact", "cmb_home"]
 
 logger = logging.getLogger(__name__)
-AUTO_IMPORT = ["cmb_contact", "cmb_home"]
 
 
 class NoMockupException(Exception):
