@@ -23,3 +23,4 @@ class Command(BaseCommand):
             except Exception as ex:
                 self.stdout.write(self.style.ERROR(
                     f'An error ocurred while adding mockup data:\n{ex}'))
+                raise ex

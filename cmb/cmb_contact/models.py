@@ -3,9 +3,10 @@ from tinymce.models import HTMLField
 
 from cmb_home.models import trim
 from cmb_home.mockup import mockup_content
+from cmb_utils.mixins import ContentContextMixin
 
 
-class ContactContent(models.Model):
+class ContactContent(models.Model, ContentContextMixin):
     html = HTMLField()
     position = models.PositiveIntegerField(default=10, verbose_name="vertical position")
     default_reference = "/contact"
@@ -21,7 +22,7 @@ class ContactContent(models.Model):
     # noinspection PyUnresolvedReferences
     @classmethod
     def get_context(cls, reference=default_reference) -> dict:
-        return {"content": sorted(cls.objects.filter(reference=reference), key=lambda obj: obj.position)}
+        return cls._get_context(cls.objects.filter(reference=reference))
 
     @classmethod
     def mockup(cls) -> bool:

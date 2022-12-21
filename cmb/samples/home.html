@@ -21,8 +21,8 @@
       <!--  -->
       <hr class="w3-opacity" />
 
-      <div class="w3-content w3-justify w3-text-grey">
-        {% for c in content %} {{c.html | safe}} {% endfor %}
+      <div class="w3-content w3-text-grey">
+        {% for c in content.all %} {{c.html | safe}} {% endfor %}
         <!--  -->
       </div>
 

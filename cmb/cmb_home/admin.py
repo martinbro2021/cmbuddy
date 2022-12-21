@@ -26,7 +26,7 @@ class ImplicitModelAdmin(admin.ModelAdmin):
     exclude_in_editor = ("id",)
 
     # noinspection PyProtectedMember
-    def __init__(self, model, admin_site):
+    def __init__(self, model, admin_site) -> None:
         super().__init__(model, admin_site)
         self.exclude = self.exclude_in_editor
         self.list_display = self.list_display + tuple(field.name for field in model._meta.fields)
@@ -59,7 +59,7 @@ class HomeContentAdmin(ImplicitModelAdmin):
     list_display = ("digest",)
 
 
-def register_automatically(model_admin):
+def register_automatically(model_admin) -> None:
     """Registers all yet unregistered models to the admin site."""
     models = applications.get_models()
     for model in models:

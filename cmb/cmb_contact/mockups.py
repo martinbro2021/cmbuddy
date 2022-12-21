@@ -6,24 +6,42 @@ SNIPPET_MOCKUP = {
 LINK_MOCKUP = {}
 
 CONTACTCONTENT_MOCKUP = {
-    19258:  # random number, has no effect here.
+    19258:
     {
-        "html": '<p>&nbsp;</p>'
-                '<p>&nbsp;</p>'
-                '<p>&nbsp;</p>'
-                '<h1 style = "text-align: center"> Thank you </h1>'
-                '<hr/>'
-                '<p style="text-align: center">I received your message. I will reply soon.</p>'
-                '<p>&nbsp;</p>'
-                '<p>&nbsp;</p>'
-                '<p>&nbsp;</p>'
-                '<p>&nbsp;</p>',
+        "html":
+            '<p>&nbsp;</p>'
+            '<h1 style = "text-align: center"> Thank you </h1>',
+
+        "position": 10,
         "reference": "/contact/success",
     },
-    29673:  # random number, has no effect here.
+    32498: {
+        "html":
+            '<hr/>'
+            '<p style="text-align: center">I received your message. I will reply soon.</p>'
+            '<p>&nbsp;</p>'
+            '<p>&nbsp;</p>'
+            '<p>&nbsp;</p>'
+            '<p>&nbsp;</p>',
+
+        "position": 20,
+        "reference": "/contact/success",
+    },
+    29673:
     {
-        "html": '<h1 style="text-align: center">Contact Me</h1>'
-                '<hr/><p>Leave a greeting or ask me a question</p>',
+        "html":
+            '<p>&nbsp;</p>'
+            '<h1 style = "text-align: center">Contact Me</h1>',
+
+        "position": 10,
+        "reference": "/contact",
+    },
+    24811:
+    {
+        "html":
+        '<hr/><p>Leave a greeting or ask me a question</p>',
+
+        "position": 20,
         "reference": "/contact",
     },
 }
