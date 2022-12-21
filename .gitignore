@@ -1,0 +1,21 @@
+# db
+*.sqlite3
+
+# playground
+playground.*
+
+# python cache / IDE / virtual env 
+/dvenv
+.idea
+__pycache__
+
+# django migrations
+migrations
+
+cmb/static
+cmb/media/**/*
+cmb/cmb_sample/config.py
+!cmb/media/sample_portrait.jpg
+
+# ignore todos
+todo.md
