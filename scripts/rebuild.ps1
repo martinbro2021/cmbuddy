@@ -6,7 +6,7 @@ python -c 'from django.core.management.utils import get_random_secret_key; print
 
 Remove-Item -Recurse .\cmb\cmb_home\migrations
 Remove-Item -Recurse .\cmb\cmb_contact\migrations
-Remove-Item .\cmb\db.sqlite3
+Remove-Item .\cmb\sample-db.sqlite3
 
 .\dvenv\Scripts\Activate.ps1
 python .\cmb\manage.py makemigrations cmb_home
