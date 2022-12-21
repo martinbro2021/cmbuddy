@@ -6,9 +6,6 @@ from django.urls import include, path
 
 from cmb_sample.settings import DEBUG, MEDIA_ROOT, MEDIA_URL
 
-admin.sites.AdminSite.site_header = 'CMBuddy admin'
-admin.sites.AdminSite.site_title = 'CMBuddy admin'
-admin.sites.AdminSite.index_title = 'Index'
 
 urlpatterns = [
     path('admin/', admin.site.urls),

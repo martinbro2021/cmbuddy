@@ -6,7 +6,7 @@ from cmb_utils.mixins import DigestMixin, ContentContextMixin, trim
 
 from cmb_home.mockup import mockup_content, mockup_files, mockup_links, mockup_settings, mockup_snippets
 from cmb_home.my_markdown import md
-from cmb_sample.settings import MEDIA_URL
+MEDIA_URL = "media/"
 
 
 logger = logging.getLogger(__name__)
@@ -81,7 +81,7 @@ class Link(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:
-        _str = f"Link: {self.target} -> {self.url if self.url else '?'}"
+        _str = f"Link<{self.target} -> {self.url if self.url else '?'}>"
         return trim(_str)
 
     # noinspection PyUnresolvedReferences
@@ -125,4 +125,4 @@ class File(models.Model):
 
     @ property
     def url(self) -> str:
-        return "/" + MEDIA_URL + self.file.name if self.file else ""
+        return ("/" + MEDIA_URL + self.file.name) if self.file else ""

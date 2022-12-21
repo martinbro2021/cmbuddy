@@ -22,6 +22,8 @@ if not SECRET_KEY and not DEBUG:
 elif not SECRET_KEY:
     SECRET_KEY = get_random_secret_key()
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 INSTALLED_APPS = [
     'sslserver',
     'tinymce',
@@ -104,7 +106,7 @@ APPS_WITH_STATIC_DIRS = ["cmb_captcha", "cmb_contact", "cmb_home", "cmb_sample"]
 STATICFILES_DIRS = [os.path.join(BASE_DIR, f"{app}/static") for app in APPS_WITH_STATIC_DIRS]
 STATICFILES_DIRS.append(os.path.join(BASE_DIR, "cmb_sample/static"))
 STATIC_URL = 'static/'
-MEDIA_URL = "media/"
+MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
