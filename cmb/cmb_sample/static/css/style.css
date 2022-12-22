@@ -22,12 +22,12 @@ hr {
   border-width: 3px;
 }
 
-.grayscale-85 {
+.cmb_grayscale-85 {
   -webkit-filter: grayscale(85%); /*WebKit*/
   filter: grayscale(85%);
   opacity: 60%;
 }
-.grayscale-50 {
+.cmb_grayscale-50 {
   -webkit-filter: grayscale(50%); /*WebKit*/
   filter: grayscale(50%);
   opacity: 90%;
