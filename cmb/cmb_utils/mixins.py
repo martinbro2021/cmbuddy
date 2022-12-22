@@ -22,15 +22,16 @@ class DigestMixin:
 
 
 class ContentContextMixin:
+
     @classmethod
     # noinspection PyUnresolvedReferences
-    def _get_context(cls, objects) -> dict:
-        all_obj = sorted(objects, key=lambda obj: obj.position)
-        sec_1 = filter(lambda obj: -1 < obj.position <= 10, all_obj)
-        sec_2 = filter(lambda obj: 10 < obj.position <= 20, all_obj)
-        sec_3 = filter(lambda obj: 20 < obj.position <= 99, all_obj)
+    def _get_context(cls, query_set) -> dict:
+        all_ordered = query_set.order_by("position")
+        sec_1 = all_ordered.filter(position__gt=-1).filter(position__lte=10)
+        sec_2 = all_ordered.filter(position__gt=10).filter(position__lte=20)
+        sec_3 = all_ordered.filter(position__gt=20).filter(position__lte=30)
         return {"content": {
-            "all": all_obj,
+            "all": all_ordered,
             "section_1": sec_1,
             "section_2": sec_2,
             "section_3": sec_3
