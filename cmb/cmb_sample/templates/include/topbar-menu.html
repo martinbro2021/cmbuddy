@@ -1,0 +1,21 @@
+{% with button_style="w3-bar-item w3-button w3-text-grey w3-hover-white" %}
+<style>
+  #menu-topbar a {
+    display: inline;
+  }
+  #menu-topbar a:hover {
+    font-weight: 700;
+  }
+</style>
+<nav id="menu-topbar" class="w3-hide-small">
+  <!-- todo make translatable -->
+  <div class="w3-bar-block w3-center">
+    <a class="{{button_style}}" href="/home" onclick="closeNav()">About</a>
+    <a class="{{button_style}}" href="#" onclick="closeNav()">News</a>
+    <a class="{{button_style}}" href="#" onclick="closeNav()">Calendar</a>
+    <a class="{{button_style}}" href="#" onclick="closeNav()">Media</a>
+    <a class="{{button_style}}" href="/contact" onclick="closeNav()">Contact</a>
+  </div>
+  <hr style="opacity: 0.5; margin-top: 12px" />
+</nav>
+{% endwith %}

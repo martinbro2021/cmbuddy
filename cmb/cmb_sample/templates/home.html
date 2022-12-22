@@ -9,10 +9,15 @@
     {% include "include/dependencies.html" %}
   </head>
   <body>
-    {% include "include/sidebar-menu.html" %} {% include "include/background-image.html" %}
+    <!--  -->
+    {% include "include/sidebar-menu.html" %}
+    <!--  -->
+    {% include "include/background-image.html" %}
     <div class="w3-main w3-padding-large" style="margin-left: 40%; height: 100%">
       <div style="min-height: 85%">
-        {% include "include/open-nav.html" %} {% include "include/header-home.html" %}
+        {% include "include/topbar-menu.html" %} {% include "include/open-nav.html" %}
+        <!--  -->
+        {% include "include/header-home.html" %}
         <hr class="w3-opacity" />
         <div class="w3-content w3-text-grey w3-justify">{% for c in content.all %} {{c.html | safe}} {% endfor %}</div>
       </div>
