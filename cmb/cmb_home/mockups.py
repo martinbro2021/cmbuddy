@@ -9,7 +9,7 @@ Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit ame
 
 
 HOMECONTENT_MOCKUP = {
-    28324921387434:  # random number, has no effect here.
+    "home-about":
     {
         "html": f"<h2>About</h2><p style='text-align: justify'>{LOREM_IPSUM}</p>",
         "warning": "this should raise a warning"

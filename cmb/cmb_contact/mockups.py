@@ -6,7 +6,7 @@ SNIPPET_MOCKUP = {
 LINK_MOCKUP = {}
 
 CONTACTCONTENT_MOCKUP = {
-    19258:
+    "contact-header":  # keys don't matter here. you just need a *different* key for each value
     {
         "html":
             '<p>&nbsp;</p>'
@@ -15,7 +15,8 @@ CONTACTCONTENT_MOCKUP = {
         "position": 10,
         "reference": "/contact/success",
     },
-    32498: {
+    "contact-msg-received":
+    {
         "html":
             '<hr/>'
             '<p style="text-align: center">I received your message. I will reply soon.</p>',
@@ -23,7 +24,7 @@ CONTACTCONTENT_MOCKUP = {
         "position": 20,
         "reference": "/contact/success",
     },
-    29673:
+    "contact-me":
     {
         "html":
             '<p>&nbsp;</p>'
@@ -32,13 +33,23 @@ CONTACTCONTENT_MOCKUP = {
         "position": 10,
         "reference": "/contact",
     },
-    24811:
+    "contact-invitation":
     {
         "html":
         '<hr/><p>Leave a greeting or ask me a question</p>',
 
         "position": 20,
         "reference": "/contact",
+    },
+    "contact-legal-info":
+    {
+        "html":
+        '<p>Please note the '
+        '<a title="legal information" href="https://www.example.com" target="_blank" rel="noopener">'
+        'privacy policy</a>'
+        '</p>',
+        "position": 30,
+        "reference": "/contact"
     },
 }
 
