@@ -1,4 +1,3 @@
-from hashlib import _BlakeHash
 import logging
 
 from django.db import models
@@ -102,6 +101,7 @@ class Link(models.Model):
 class MenuEntry(models.Model):
     name = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
+    position = models.IntegerField(primary_key=True, default=10)
 
     class Meta:
         verbose_name = "Menu entry"
@@ -117,7 +117,7 @@ class MenuEntry(models.Model):
     @classmethod
     def get_context(cls) -> dict:
         return {
-            "menu_entries": baefwef
+            "menu_entries": cls.objects.all()
         }
 
 # noinspection PyUnresolvedReferences

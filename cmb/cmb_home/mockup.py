@@ -4,6 +4,8 @@ from pathlib import Path
 
 from django.core.files import File as DjangoFile
 
+from cmb_utils.misc import to_snake_case_upper
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 AUTO_IMPORT = ["cmb_contact", "cmb_home"]
 
@@ -20,7 +22,7 @@ def auto_import(cls) -> dict:
     for name in AUTO_IMPORT:
         try:
             module = importlib.import_module(f"{name}.mockups", package=None)
-            imports |= getattr(module, cls.__name__.upper() + "_MOCKUP")
+            imports |= getattr(module, to_snake_case_upper(cls.__name__) + "_MOCKUP")
         except (ModuleNotFoundError, AttributeError) as ex:
             logger.info(str(ex))
     return imports
@@ -75,9 +77,12 @@ def mockup_menu_entries(cls) -> bool:
         raise NoMockupException
 
     if cls.objects.count() == 0:
-        for k, v in mocks.items():
-            menu_entry = cls(name=k, url=v)
-            setattr(menu_entry, k, v)
+        for _, entry in mocks.items():
+            menu_entry = cls()
+            for key, value in entry.items():
+                if not hasattr(menu_entry, key):
+                    logger.warning(f"Unknown key: {cls.__name__}.{key}")
+                setattr(menu_entry, key, value)
             menu_entry.save()
         return True
     return False

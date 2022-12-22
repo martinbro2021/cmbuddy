@@ -1,3 +1,4 @@
+import re
 from html.parser import HTMLParser
 from django.contrib import admin
 
@@ -21,3 +22,8 @@ class HTMLFilterInnerText(HTMLParser):
 
     def handle_data(self, data) -> None:
         self.inner_text += data
+
+
+def to_snake_case_upper(camel: str) -> str:
+    """converts camelCase to CAMEL_CASE - which is actually SNAKE_CASE ;-)"""
+    return re.sub(r'(?<!^)(?=[A-Z])', '_', camel).upper()

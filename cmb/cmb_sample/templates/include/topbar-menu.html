@@ -10,11 +10,9 @@
 <nav id="menu-topbar" class="w3-hide-small">
   <!-- todo make translatable -->
   <div class="w3-bar-block w3-center">
-    <a class="{{button_style}}" href="/home" onclick="closeNav()">About</a>
-    <a class="{{button_style}}" href="#" onclick="closeNav()">News</a>
-    <a class="{{button_style}}" href="#" onclick="closeNav()">Calendar</a>
-    <a class="{{button_style}}" href="#" onclick="closeNav()">Media</a>
-    <a class="{{button_style}}" href="/contact" onclick="closeNav()">Contact</a>
+    {% for entry in menu_entries %}
+    <a class="{{button_style}}" href="{{entry.url}}">{{entry.name}}</a>
+    {% endfor %}
   </div>
   <hr style="opacity: 0.5; margin-top: 12px" />
 </nav>

@@ -1,14 +1,14 @@
 LOREM_IPSUM = """Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
 sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
 sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
-sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
 sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
 Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."""
 
 
-HOMECONTENT_MOCKUP = {
+HOME_CONTENT_MOCKUP = {
     "home-about":
     {
         "html": f"<h2>About</h2><p style='text-align: justify'>{LOREM_IPSUM}</p>",
@@ -35,6 +35,11 @@ SNIPPET_MOCKUP = {
 
 SETTING_MOCKUP = {}
 
-MENUENTRY_MOCKUP = {
-    "Home": "/home"
+MENU_ENTRY_MOCKUP = {
+    "Home":
+    {
+        "name": "Home",
+        "url": "/home",
+        "position": 10,
+    }
 }

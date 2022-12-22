@@ -5,8 +5,8 @@ SNIPPET_MOCKUP = {
 
 LINK_MOCKUP = {}
 
-CONTACTCONTENT_MOCKUP = {
-    "contact-header":  # keys don't matter here. you just need a *different* key for each value
+CONTACT_CONTENT_MOCKUP = {
+    "contact-header":
     {
         "html":
             '<p>&nbsp;</p>'
@@ -27,7 +27,6 @@ CONTACTCONTENT_MOCKUP = {
     "contact-me":
     {
         "html":
-            '<p>&nbsp;</p>'
             '<h1 style = "text-align: center">Contact Me</h1>',
 
         "position": 10,
@@ -44,9 +43,9 @@ CONTACTCONTENT_MOCKUP = {
     "contact-legal-info":
     {
         "html":
-        '<p>Please note the '
-        '<a title="legal information" href="https://www.example.com" target="_blank" rel="noopener">'
-        'privacy policy</a>'
+        '<p>'
+        '<a title="Privacy Policy and Legal Notices" href="https://www.example.com" target="_blank" rel="noopener">'
+        'Privacy Policy and Legal Notices</a>'
         '</p>',
         "position": 30,
         "reference": "/contact"
@@ -58,6 +57,11 @@ SETTING_MOCKUP = {
 }
 
 
-MENUENTRY_MOCKUP = {
-    "Contact": "/contact"
+MENU_ENTRY_MOCKUP = {
+    "Contact":
+    {
+        "name": "Contact",
+        "url": "/contact",
+        "position": 20
+    }
 }
