@@ -56,3 +56,8 @@ CONTACTCONTENT_MOCKUP = {
 SETTING_MOCKUP = {
     "contact_email_recipients": "me@example.com, you@example.com"
 }
+
+
+MENUENTRY_MOCKUP = {
+    "Contact": "/contact"
+}

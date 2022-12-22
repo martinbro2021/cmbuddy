@@ -34,8 +34,7 @@ def mockup_snippets(cls):
 
     if cls.objects.count() == 0:
         for k, v in mocks.items():
-            s = cls()
-            s.key, s.value = k, v
+            s = cls(key=k, value=v)
             s.save()
         return True
     return False
@@ -49,8 +48,7 @@ def mockup_settings(cls):
 
     if cls.objects.count() == 0:
         for k, v in mocks.items():
-            s = cls()
-            s.key, s.value = k, v
+            s = cls(key=k, value=v)
             s.save()
         return True
     return False
@@ -64,9 +62,23 @@ def mockup_links(cls):
 
     if cls.objects.count() == 0:
         for k, v in mocks.items():
-            link = cls()
-            link.target, link.url = k, v
+            link = cls(target=k, url=v)
             link.save()
+        return True
+    return False
+
+
+def mockup_menu_entries(cls) -> bool:
+    """Adds mockup data for the menu entry model."""
+    mocks = auto_import(cls)
+    if not mocks:
+        raise NoMockupException
+
+    if cls.objects.count() == 0:
+        for k, v in mocks.items():
+            menu_entry = cls(name=k, url=v)
+            setattr(menu_entry, k, v)
+            menu_entry.save()
         return True
     return False
 
@@ -89,7 +101,7 @@ def mockup_content(cls) -> bool:
     return False
 
 
-def mockup_files(cls):
+def mockup_files(cls) -> bool:
     """Adds mockup data for file model."""
     # todo add auto import mockups
     if cls.objects.count() == 0:

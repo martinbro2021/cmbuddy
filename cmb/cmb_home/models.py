@@ -1,11 +1,12 @@
+from hashlib import _BlakeHash
 import logging
 
 from django.db import models
 from tinymce.models import HTMLField
 from cmb_utils.mixins import DigestMixin, ContentContextMixin, trim
 
-from cmb_home.mockup import mockup_content, mockup_files, mockup_links, mockup_settings, mockup_snippets
-from cmb_home.my_markdown import md
+from cmb_home.mockup import mockup_content, mockup_files, mockup_links, mockup_settings, mockup_snippets, mockup_menu_entries
+from cmb_utils.markdown_wrapper import md
 MEDIA_URL = "media/"
 
 
@@ -98,7 +99,30 @@ class Link(models.Model):
         return mockup_links(cls)
 
 
+class MenuEntry(models.Model):
+    name = models.CharField(max_length=255)
+    url = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = "Menu entry"
+        verbose_name_plural = "Menu entries"
+
+    def __str__(self) -> str:
+        return f"<{self.name}:{self.url}>"
+
+    @classmethod
+    def mockup(cls) -> bool:
+        return mockup_menu_entries(cls)
+
+    @classmethod
+    def get_context(cls) -> dict:
+        return {
+            "menu_entries": baefwef
+        }
+
 # noinspection PyUnresolvedReferences
+
+
 class File(models.Model):
     identifier = models.CharField(max_length=255, primary_key=True)
     description = models.TextField(max_length=1023, blank=True)

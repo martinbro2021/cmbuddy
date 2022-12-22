@@ -1,7 +1,7 @@
 from markdown import Markdown
 
 
-class MyMarkdown(Markdown):
+class MarkdownWrapper(Markdown):
     # todo doc
     def convert(self, source: str) -> str:
         temp = super().convert(source)
@@ -11,4 +11,4 @@ class MyMarkdown(Markdown):
         return temp
 
 
-md = MyMarkdown()
+md = MarkdownWrapper()

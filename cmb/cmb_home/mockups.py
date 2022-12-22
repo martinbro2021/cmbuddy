@@ -34,3 +34,7 @@ SNIPPET_MOCKUP = {
 }
 
 SETTING_MOCKUP = {}
+
+MENUENTRY_MOCKUP = {
+    "Home": "/home"
+}
