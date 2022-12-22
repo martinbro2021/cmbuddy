@@ -18,11 +18,7 @@ CONTACTCONTENT_MOCKUP = {
     32498: {
         "html":
             '<hr/>'
-            '<p style="text-align: center">I received your message. I will reply soon.</p>'
-            '<p>&nbsp;</p>'
-            '<p>&nbsp;</p>'
-            '<p>&nbsp;</p>'
-            '<p>&nbsp;</p>',
+            '<p style="text-align: center">I received your message. I will reply soon.</p>',
 
         "position": 20,
         "reference": "/contact/success",
