@@ -1,5 +1,5 @@
 /**
- * Provides proof-of-work functionalities
+ * Provides proof-of-work functionality
  */
 var pow = {
   /**
@@ -28,7 +28,14 @@ var pow = {
   },
 };
 
+/**
+ * Methods for handling the contact form.
+ */
 var cForm = {
+  /**
+   * Client-side check if the form is valid. Generates proof of work
+   * and submits form if the form is valid.
+   */
   onSubmit: function (btn, difficulty) {
     const form = get("contact-form");
     if (!this.isValid(form)) {
@@ -54,6 +61,9 @@ var cForm = {
     return true;
   },
 
+  /**
+   * Compiles the message with all fields that are relevant to the proof of work.
+   */
   createMsg: function (form) {
     let msg = "";
     const powRelevant = form.getElementsByClassName("_pow_relevant");
@@ -63,11 +73,18 @@ var cForm = {
     return msg;
   },
 
+  /**
+   * Disables submit button, adds spinner.
+   */
   styleForm(btn, form) {
     btn.setAttribute("disabled", "");
     this.addSpinner(form);
   },
 
+  /**
+   * Adds spinner to all input fields within the form that are relevant
+   * for the proof of work.
+   */
   addSpinner: function (form) {
     form.style.cursor = "wait";
     const inputFields = form.getElementsByClassName("_pow_relevant");
