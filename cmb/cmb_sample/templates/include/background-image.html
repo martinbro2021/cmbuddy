@@ -1,13 +1,22 @@
 <style>
-  .background-image {
+  /* background image with blur effect */
+  .cmb-bg-img-menu-grad {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100%;
-    background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0) 8px),
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0) 12px),
       url("{{files.portrait_01.url}}");
   }
+  /* background image with no blur effect */
+  .cmb-bg-img-menu {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100%;
+    background-image: url("{{files.portrait_01.url}}");
+  }
 </style>
-<nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width: 40.5%">
-  <div class="background-image"></div>
+<nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width: 40%">
+  <div class="cmb-bg-img-menu"></div>
 </nav>

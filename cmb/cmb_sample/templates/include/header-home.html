@@ -1,10 +1,10 @@
 <header class="w3-container w3-center w3-padding-16">
   {% if snippets.home_header_svg %}
-  <img class="w3-hide-small w3-hide-medium" style="opacity: 0.7; width: 40rem" src="{{ snippets.home_header_svg }}" />
-  <img class="w3-hide-large" style="opacity: 0.7; width: 25rem" src="{{ snippets.home_header_svg }}" />
+  <img class="w3-hide-small w3-hide-medium" style="opacity: 0.5; width: 40rem" src="{{ snippets.home_header_svg }}" />
+  <img class="w3-hide-large" style="opacity: 0.5; width: 25rem" src="{{ snippets.home_header_svg }}" />
   {% else %}
   <h1 class="w3-jumbo"><b>{{snippets.home_header | safe}}</b></h1>
   {% endif %}
-  <p class="w3-opacity">{{snippets.home_description | safe}}</p>
+  <p>{{snippets.home_description | safe}}</p>
   {% include "include/portrait-small-medium.html" %}
 </header>

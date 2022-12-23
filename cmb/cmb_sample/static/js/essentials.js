@@ -1,7 +1,7 @@
 function openNav() {
-  document.getElementById("menu-sidebar").style.width = "100%";
-  document.getElementById("menu-sidebar").style.display = "block";
+  document.getElementById("cmb-menu-sidebar").style.width = "100%";
+  document.getElementById("cmb-menu-sidebar").style.display = "block";
 }
 function closeNav() {
-  document.getElementById("menu-sidebar").style.display = "none";
+  document.getElementById("cmb-menu-sidebar").style.display = "none";
 }
