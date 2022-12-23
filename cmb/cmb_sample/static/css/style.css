@@ -47,3 +47,18 @@ hr {
   background: #888888;
   border-radius: 4px;
 }
+
+#cmb-menu-topbar a {
+  display: inline;
+}
+.cmb-menu-item {
+  font-size: large;
+  cursor: pointer;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: grey;
+}
+.cmb-menu-item:hover {
+  font-weight: 900;
+}
