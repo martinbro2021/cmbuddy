@@ -1,11 +1,12 @@
 :root {
-  --primary: #929292;
+  --primary: #525252;
   --primary-bg: #fff;
   --secondary: #fff;
-  --accent: var(--primary);
+  --accent: rgb(62, 103, 152);
+  --accent-opaque: rgb(62, 103, 152, 0.1);
 
-  --header: var(--accent);
-  --border: #6a6a6a16;
+  --header: var(--primary);
+  --border: var(--accent-opaque);
 
   --menu-item: var(--primary);
   --menu-item-hover: black;
@@ -31,16 +32,8 @@ h3,
 h4,
 h5,
 h6 {
+  color: var(--header);
   font-family: "Montserrat", sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--accent);
 }
 
 a:hover {
@@ -92,6 +85,15 @@ hr {
   background-color: var(--menu-side-bg);
 }
 
+#cmb-menu-topbar .cmb-accent {
+  border-bottom: 3px solid var(--accent);
+}
+
+#cmb-menu-sidebar .cmb-accent::before,
+#cmb-menu-sidebar .cmb-accent::after {
+  content: " = ";
+}
+
 #cmb-menu-sidebar .cmb-menu-item {
   font-size: 3rem;
   cursor: pointer;
@@ -111,6 +113,7 @@ hr {
   text-decoration: none;
   padding-left: var(--menu-item-padding);
   padding-right: var(--menu-item-padding);
+  padding-bottom: 6px;
 }
 
 .cmb-menu-item:hover {
@@ -139,5 +142,7 @@ hr {
 }
 #cmb-contact-section input,
 #cmb-contact-section textarea {
+  border: 0px !important;
+  border-bottom: 2px solid var(--border) !important;
   background-color: var(--input-bg);
 }

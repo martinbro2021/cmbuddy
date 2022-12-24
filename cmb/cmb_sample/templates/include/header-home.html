@@ -1,7 +1,8 @@
-<header class="w3-container w3-center w3-padding-16">
+<header class="w3-container w3-center w3-padding-32">
   {% if snippets.home_header_svg %}
+  <img class="w3-hide-large w3-hide-medium" style="opacity: 0.5; width: 18rem" src="{{ snippets.home_header_svg }}" />
+  <img class="w3-hide-large w3-hide-small" style="opacity: 0.5; width: 25rem" src="{{ snippets.home_header_svg }}" />
   <img class="w3-hide-small w3-hide-medium" style="opacity: 0.5; width: 40rem" src="{{ snippets.home_header_svg }}" />
-  <img class="w3-hide-large" style="opacity: 0.5; width: 25rem" src="{{ snippets.home_header_svg }}" />
   {% else %}
   <h1 class="w3-jumbo"><b>{{snippets.home_header | safe}}</b></h1>
   {% endif %}

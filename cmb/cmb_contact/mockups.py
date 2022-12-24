@@ -27,7 +27,9 @@ CONTACT_CONTENT_MOCKUP = {
     "contact-me":
     {
         "html":
-            '<h1 style = "text-align: center">Contact Me</h1>',
+            '<h1 style="text-align: center" class="w3-hide-large w3-hide-medium">'
+            'Contact Me'
+            '</h1>',
 
         "position": 10,
         "reference": "/contact",
@@ -35,7 +37,9 @@ CONTACT_CONTENT_MOCKUP = {
     "contact-invitation":
     {
         "html":
-        '<hr/><p>Leave a greeting or ask me a question</p>',
+            '<p></p>'
+            '<p style="text-align: center">Leave a greeting or ask me a question</p>'
+            '<hr/>',
 
         "position": 20,
         "reference": "/contact",

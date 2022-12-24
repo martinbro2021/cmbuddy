@@ -13,7 +13,7 @@
     <div class="w3-main" style="margin-left: 40%; height: 100%">
       {% include "include/topbar-menu.html" %}
       <div class="w3-padding-large" style="min-height: 75%">
-        {% include "include/open-nav.html" %}
+        {% include "include/open-sidebar-menu.html" %}
         <div class="w3-content w3-justify">{% for c in content.section_1 %} {{c.html | safe}} {% endfor %}</div>
         {% include "include/header-portrait.html" %}
         <div class="w3-content w3-justify">{% for c in content.section_2 %} {{c.html | safe}} {% endfor %}</div>

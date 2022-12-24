@@ -4,13 +4,13 @@
   id="cmb-menu-sidebar"
   style="display: none; padding-top: 150px; right: 0; z-index: 2"
 >
-  <a class="cmb-menu-item w3-xlarge w3-display-topright" onclick="closeNav()" style="padding: 24px">
+  <a class="cmb-menu-item w3-xlarge w3-display-topright" onclick="closeSidebarMenu()" style="padding: 24px">
     <i class="fa fa-remove"></i>
   </a>
   <!-- todo make translatable -->
   <div class="w3-bar-block w3-center">
     {% for entry in menu_entries %}
-    <a class="cmb-menu-item" href="{{entry.url}}" onclick="closeNav()">{{entry.name}}</a>
+    <a class="cmb-menu-item" href="{{entry.url}}" onclick="closeSidebarMenu()">{{entry.name}}</a>
     {% endfor %}
   </div>
 </nav>
