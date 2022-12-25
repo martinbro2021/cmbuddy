@@ -5,7 +5,6 @@ from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management.utils import get_random_secret_key
 
-from cmb_sample import config
 
 logger = logging.getLogger(__name__)
 
@@ -148,12 +147,15 @@ TINYMCE_DEFAULT_CONFIG = {
                 "removeformat | help fullscreen |"
 }
 
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = config.EMAIL_HOST
-    EMAIL_HOST_USER = config.EMAIL_HOST_USER
-    EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
-    EMAIL_PORT = config.EMAIL_PORT
-    EMAIL_USE_TLS = config.EMAIL_USE_TLS
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if not DEBUG:
+    try:
+        from cmb_sample import config
+        EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+        EMAIL_HOST = config.EMAIL_HOST
+        EMAIL_HOST_USER = config.EMAIL_HOST_USER
+        EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
+        EMAIL_PORT = config.EMAIL_PORT
+        EMAIL_USE_TLS = config.EMAIL_USE_TLS
+    except Exception as ex:
+        logger.error(ex)
