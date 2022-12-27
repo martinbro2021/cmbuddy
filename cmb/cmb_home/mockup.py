@@ -1,9 +1,9 @@
 import importlib
 import logging
+import tempfile
 from pathlib import Path
 
 from django.core.files import File as DjangoFile
-
 from cmb_utils.misc import to_snake_case_upper
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -109,11 +109,17 @@ def mockup_content(cls) -> bool:
 def mockup_files(cls) -> bool:
     """Adds mockup data for file model."""
     # todo add auto import mockups
+
     if cls.objects.count() == 0:
-        file_object = cls()
-        with open(BASE_DIR / "media/sample_portrait.jpg", "rb") as file:
-            file_object.file = DjangoFile(file)
+        file_name = "sample_portrait.jpg"
+        file_path = BASE_DIR / "mockup_files/"
+        temp = tempfile.NamedTemporaryFile(dir=file_path)
+        with open(file_path / file_name, "rb") as file:
+            temp.write(file.read())
+            file_object = cls()
             file_object.identifier = "portrait_01"
+            file_object.file = DjangoFile(temp, name=file_name)
             file_object.save()
+        temp.close()
         return True
     return False
