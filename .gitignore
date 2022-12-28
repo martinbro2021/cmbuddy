@@ -1,7 +1,7 @@
 # db
 *.sqlite3
 
-/dvenv
+/venv
 __pycache__
 
 # django migrations

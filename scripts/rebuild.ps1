@@ -8,7 +8,7 @@ Remove-Item -Recurse .\cmb\cmb_home\migrations
 Remove-Item -Recurse .\cmb\cmb_contact\migrations
 Remove-Item .\cmb\sample-db.sqlite3
 
-.\dvenv\Scripts\Activate.ps1
+.\venv\Scripts\Activate.ps1
 python .\cmb\manage.py makemigrations cmb_home
 python .\cmb\manage.py makemigrations cmb_contact
 python .\cmb\manage.py migrate
