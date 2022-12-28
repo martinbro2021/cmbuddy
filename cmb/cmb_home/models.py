@@ -2,10 +2,13 @@ import logging
 
 from django.db import models
 from tinymce.models import HTMLField
-from cmb_utils.mixins import DigestMixin, ContentContextMixin, trim
 
-from cmb_home.mockup import mockup_content, mockup_files, mockup_links, mockup_settings, mockup_snippets, mockup_menu_entries
+from cmb_home.mockup import (mockup_content, mockup_files, mockup_links,
+                             mockup_menu_entries, mockup_settings,
+                             mockup_snippets)
 from cmb_utils.markdown_wrapper import md
+from cmb_utils.mixins import ContentContextMixin, DigestMixin, trim
+
 MEDIA_URL = "media/"
 
 
@@ -46,7 +49,7 @@ class Setting(models.Model):
 
 
 class HomeContent(models.Model, DigestMixin, ContentContextMixin):
-    html = HTMLField()
+    html = HTMLField(verbose_name="text")
     position = models.PositiveIntegerField(default=10, verbose_name="vertical position")
 
     class Meta:

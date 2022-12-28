@@ -1,4 +1,4 @@
-from cmb_home.models import File, Link, Snippet, MenuEntry
+from cmb_home.models import File, Link, MenuEntry, Snippet
 
 
 def get_context(content_model, **kwargs) -> dict:

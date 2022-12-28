@@ -4,10 +4,11 @@ import tempfile
 from pathlib import Path
 
 from django.core.files import File as DjangoFile
+
 from cmb_utils.misc import to_snake_case_upper
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-AUTO_IMPORT = ["cmb_contact", "cmb_home"]
+AUTO_IMPORT_FROM = ["cmb_contact", "cmb_home"]
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +20,7 @@ class NoMockupException(Exception):
 def auto_import(cls) -> dict:
     """Imports mockup data from the given paths automatically."""
     imports = {}
-    for name in AUTO_IMPORT:
+    for name in AUTO_IMPORT_FROM:
         try:
             module = importlib.import_module(f"{name}.mockups", package=None)
             imports |= getattr(module, to_snake_case_upper(cls.__name__) + "_MOCKUP")
@@ -28,7 +29,7 @@ def auto_import(cls) -> dict:
     return imports
 
 
-def mockup_snippets(cls):
+def mockup_snippets(cls) -> bool:
     """Adds mockup data for snippet model."""
     mocks = auto_import(cls)
     if not mocks:
@@ -42,7 +43,7 @@ def mockup_snippets(cls):
     return False
 
 
-def mockup_settings(cls):
+def mockup_settings(cls) -> bool:
     """Adds mockup data for setting model."""
     mocks = auto_import(cls)
     if not mocks:
@@ -56,7 +57,7 @@ def mockup_settings(cls):
     return False
 
 
-def mockup_links(cls):
+def mockup_links(cls) -> bool:
     """Adds mockup data for link model."""
     mocks = auto_import(cls)
     if not mocks:
@@ -108,18 +109,22 @@ def mockup_content(cls) -> bool:
 
 def mockup_files(cls) -> bool:
     """Adds mockup data for file model."""
-    # todo add auto import mockups
+    mocks = auto_import(cls)
+    if not mocks:
+        raise NoMockupException
+    FILE_PATH = BASE_DIR / "mockup_files/"
 
     if cls.objects.count() == 0:
-        file_name = "sample_portrait.jpg"
-        file_path = BASE_DIR / "mockup_files/"
-        temp = tempfile.NamedTemporaryFile(dir=file_path)
-        with open(file_path / file_name, "rb") as file:
-            temp.write(file.read())
-            file_object = cls()
-            file_object.identifier = "portrait_01"
-            file_object.file = DjangoFile(temp, name=file_name)
-            file_object.save()
-        temp.close()
+        for identifier, entry in mocks.items():
+            file_name = entry["file_name"]
+            temp = tempfile.NamedTemporaryFile(dir=FILE_PATH)
+            with open(FILE_PATH / file_name, "rb") as file:
+                temp.write(file.read())
+                file_instance = cls()
+                file_instance.identifier = identifier
+                file_instance.description = entry["description"]
+                file_instance.file = DjangoFile(temp, name=file_name)
+                file_instance.save()
+            temp.close()
         return True
     return False

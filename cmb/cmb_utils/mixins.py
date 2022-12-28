@@ -1,11 +1,24 @@
-from cmb_utils.misc import HTMLFilterInnerText
+from django.template import loader
+from django.utils.safestring import mark_safe
 
+from cmb_utils.misc import HTMLFilterInnerText
 
 MAX_DIGEST_LEN = 100
 
 
 def trim(_str: str, trim_len: int = MAX_DIGEST_LEN) -> str:
     return _str[:trim_len] + (" [...]" if len(_str) > trim_len else "")
+
+
+class PreviewMixin:
+    """Provides a preview of an html field embedded in an <iframe> in the django admin"""
+
+    def preview(self, obj) -> str:
+        template = loader.get_template("previews/description.html")
+        temp = template.render({"preview": obj.html}).replace("\"", "'")
+        html = f'<iframe style="width:100%; height: 400px" srcdoc="{temp}"></iframe>'
+        return mark_safe(html)
+    preview.short_description = "Current content"
 
 
 class DigestMixin:

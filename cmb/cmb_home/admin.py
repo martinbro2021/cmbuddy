@@ -4,23 +4,13 @@ import logging
 
 from django.apps import apps as applications
 from django.contrib import admin
-from django.template import loader
 from django.utils.safestring import mark_safe
+
+from cmb_contact.admin import *  # do not remove - force to register first
+from cmb_home.models import File, HomeContent, Link, Snippet
 from cmb_utils.misc import ImplicitModelAdmin
 
-from cmb_home.models import File, Link, Snippet, HomeContent
-
 logger = logging.getLogger(__name__)
-
-
-class PreviewMixin:
-    # todo check usage
-    def preview(self, obj):
-        template = loader.get_template("previews/description.html")
-        temp = template.render({"preview": obj.html}).replace("\"", "'")
-        html = f'<iframe style="width:100%; height: 400px" srcdoc="{temp}"></iframe>'
-        return mark_safe(html)
-    preview.short_description = "Preview"
 
 
 class FileAdmin(ImplicitModelAdmin):
@@ -28,11 +18,11 @@ class FileAdmin(ImplicitModelAdmin):
     exclude_in_list = ("description_html", "__str__")
     readonly_fields = ("preview",)
 
-    def preview(self, obj):
+    def preview(self, obj) -> str:
         html = f'<img style="width:400px;" src={obj.url} />'
         return mark_safe(html)
 
-    preview.short_description = "Preview"
+    preview.short_description = "Current file"
 
 
 class LinkAdmin(admin.ModelAdmin):

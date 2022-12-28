@@ -1,7 +1,7 @@
 /**
  * Provides proof-of-work functionality
  */
-var pow = {
+let pow = {
   /**
    * Calculates a nonce so that the hex representation of
    * sha256(nonce + msg) starts with the given number of zeros
@@ -31,13 +31,13 @@ var pow = {
 /**
  * Methods for handling the contact form.
  */
-var cForm = {
+let cForm = {
   /**
    * Client-side check if the form is valid. Generates proof of work
    * and submits form if the form is valid.
    */
   onSubmit: function (btn, difficulty) {
-    const form = get("contact-form");
+    const form = document.getElementById("contact-form");
     if (!this.isValid(form)) {
       return;
     }
@@ -45,7 +45,7 @@ var cForm = {
     this.styleForm(btn, form);
 
     pow.generate(this.createMsg(form), difficulty).then((nonce) => {
-      get("pow").setAttribute("value", nonce);
+      document.getElementById("pow").setAttribute("value", nonce);
       console.debug("NONCE:", nonce);
       form.submit();
     });
@@ -93,18 +93,4 @@ var cForm = {
       inputField.setAttribute("readonly", "");
     }
   },
-};
-
-/**
- * document.getElementById convenience wrapper
- */
-let get = function (elem) {
-  return document.getElementById(elem);
-};
-
-/**
- * document.getElementById(elem).value convenience wrapper
- */
-let val = function (elem) {
-  return document.getElementById(elem).value;
 };

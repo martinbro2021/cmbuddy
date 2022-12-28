@@ -1,14 +1,12 @@
 from django.db import models
 from tinymce.models import HTMLField
 
-from cmb_utils.mixins import DigestMixin
-from cmb_home.models import trim
 from cmb_home.mockup import mockup_content
-from cmb_utils.mixins import ContentContextMixin
+from cmb_utils.mixins import ContentContextMixin, DigestMixin
 
 
 class ContactContent(models.Model, ContentContextMixin, DigestMixin):
-    html = HTMLField()
+    html = HTMLField(verbose_name="text")
     position = models.PositiveIntegerField(default=10, verbose_name="vertical position")
     default_reference = "/contact"
     reference = models.CharField(

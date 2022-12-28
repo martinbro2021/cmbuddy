@@ -43,3 +43,11 @@ MENU_ENTRY_MOCKUP = {
         "position": 10,
     }
 }
+
+FILE_MOCKUP = {
+    "portrait_01":
+    {
+        "file_name": "sample_portrait.jpg",
+        "description": "Portrait of John Doe",
+    }
+}
