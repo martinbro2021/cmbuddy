@@ -1,14 +1,13 @@
-from cmb_contact.admin import *  # do not remove - force to register first
-
 import logging
 
 from django.apps import apps as applications
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from cmb_contact.admin import *  # do not remove - force to register first
+from cmb_contact.admin import *  # do not remove - force to register first  # noqa: F40
 from cmb_home.models import File, HomeContent, Link, Snippet
 from cmb_utils.misc import ImplicitModelAdmin
+from cmb_utils.mixins import PreviewMixin
 
 logger = logging.getLogger(__name__)
 

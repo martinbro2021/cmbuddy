@@ -1,6 +1,7 @@
 import logging
 
 from django.db import models
+
 from tinymce.models import HTMLField
 
 from cmb_home.mockup import (mockup_content, mockup_files, mockup_links,
@@ -21,7 +22,6 @@ class Snippet(models.Model):
     html = models.TextField(max_length=8191)
 
     @classmethod
-    # noinspection PyUnresolvedReferences
     def get_context(cls) -> dict:
         return {
             "snippets": {obj.key: obj.html for obj in cls.objects.all()}
@@ -49,7 +49,7 @@ class Setting(models.Model):
 
 
 class HomeContent(models.Model, DigestMixin, ContentContextMixin):
-    html = HTMLField(verbose_name="text")
+    html = HTMLField(verbose_name="text")  # type: ignore
     position = models.PositiveIntegerField(default=10, verbose_name="vertical position")
 
     class Meta:
@@ -68,13 +68,10 @@ class HomeContent(models.Model, DigestMixin, ContentContextMixin):
         return mockup_content(cls)
 
 
-# noinspection PyTypeChecker
-# noinspection PyUnresolvedReference
 class Link(models.Model):
     target = models.CharField(max_length=255, primary_key=True)
     url = models.CharField(max_length=255, blank=True)
 
-    # noinspection PyUnresolvedReferences
     def save(self, *args, **kwargs) -> None:
         if self.url:
             if self.url.count("@"):
@@ -87,7 +84,6 @@ class Link(models.Model):
         _str = f"Link<{self.target} -> {self.url if self.url else '?'}>"
         return trim(_str)
 
-    # noinspection PyUnresolvedReferences
     @ classmethod
     def get_context(cls) -> dict:
         return {
@@ -122,8 +118,6 @@ class MenuEntry(models.Model):
         return {
             "menu_entries": cls.objects.all()
         }
-
-# noinspection PyUnresolvedReferences
 
 
 class File(models.Model):

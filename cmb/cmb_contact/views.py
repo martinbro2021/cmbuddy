@@ -28,7 +28,7 @@ def contact(request: HttpRequest) -> HttpResponse:
 
     elif request.method == "POST":
         try:
-            captcha_validation = "valid" if is_valid_captcha(request.POST) else "invalid"
+            captcha_validation = "valid" if is_valid_captcha(request.POST.dict()) else "invalid"
         except ProofOfWorkException:
             return HttpResponseBadRequest()
 
@@ -49,14 +49,14 @@ def contact(request: HttpRequest) -> HttpResponse:
             return HttpResponse(template.render(context, request))
         else:
             send_mail_wrapper(request.POST)
-            return redirect("send-success", timestamp=hex(int(time.time()))[2:])
+            return redirect("send-success", timestamp_str=hex(int(time.time()))[2:])
     else:
         return HttpResponseBadRequest()
 
 
-def success(request: HttpRequest, timestamp: str) -> HttpResponse:
+def success(request: HttpRequest, timestamp_str: str) -> HttpResponse:
     try:
-        timestamp = int(timestamp, base=16)
+        timestamp = int(timestamp_str, base=16)
         if time.time() - timestamp > REDIRECT_TIME_DELTA:
             return redirect("home")
     except Exception as ex:

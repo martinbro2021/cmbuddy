@@ -8,11 +8,11 @@ LIFESPAN = 600  # lifespan of a captcha in seconds
 cmb_captcha = CMBCaptcha(DIGITS, LIFESPAN, POOL, DIFFICULTY)
 
 
-def get_context():
+def get_context() -> dict:
     return {"captcha": cmb_captcha.create_captcha()}
 
 
-def is_valid_captcha(post: dict):
+def is_valid_captcha(post: dict) -> bool:
     uuid = int(post["uuid"].replace("-", ""), base=16)
     captcha = hash(post["captcha"].upper())
     pow = post["pow"]

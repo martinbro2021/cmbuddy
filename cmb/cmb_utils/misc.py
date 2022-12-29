@@ -9,11 +9,10 @@ class ImplicitModelAdmin(admin.ModelAdmin):
     exclude_in_list = ("id",)
     exclude_in_editor = ("id",)
 
-    # noinspection PyProtectedMember
     def __init__(self, model, admin_site) -> None:
         super().__init__(model, admin_site)
         self.exclude = self.exclude_in_editor
-        self.list_display = self.list_display + tuple(field.name for field in model._meta.fields)
+        self.list_display: tuple = self.list_display + tuple(field.name for field in model._meta.fields)
         self.list_display = tuple(filter(lambda name: name not in self.exclude_in_list, self.list_display))
 
 

@@ -2,7 +2,8 @@ from django.core.management.base import BaseCommand
 
 from cmb_contact.models import ContactContent
 from cmb_home.mockup import NoMockupException
-from cmb_home.models import File, HomeContent, Link, MenuEntry, Setting, Snippet
+from cmb_home.models import (File, HomeContent, Link, MenuEntry, Setting,
+                             Snippet)
 
 
 class Command(BaseCommand):

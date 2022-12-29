@@ -19,12 +19,12 @@ class Command(BaseCommand):
             try:
                 user_model = get_user_model()
 
-                creator = user_model.objects.create_user(self.creator_name, '', creator_pw)
+                creator = user_model.objects.create_user(self.creator_name, '', creator_pw)  # type: ignore
                 creator.is_staff = True
                 creator.save()
                 self.stdout.write(self.style.SUCCESS(f"Created user '{self.creator_name}' with password: {creator_pw}"))
 
-                user_model.objects.create_superuser('admin', '', password)
+                user_model.objects.create_superuser('admin', '', password)  # type: ignore
                 self.stdout.write(self.style.SUCCESS(
                     "Created superuser 'admin'"))
             except Exception as ex:

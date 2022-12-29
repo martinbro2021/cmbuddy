@@ -1,4 +1,5 @@
 from django.db import models
+
 from tinymce.models import HTMLField
 
 from cmb_home.mockup import mockup_content
@@ -6,7 +7,7 @@ from cmb_utils.mixins import ContentContextMixin, DigestMixin
 
 
 class ContactContent(models.Model, ContentContextMixin, DigestMixin):
-    html = HTMLField(verbose_name="text")
+    html = HTMLField(verbose_name="text")  # type: ignore
     position = models.PositiveIntegerField(default=10, verbose_name="vertical position")
     default_reference = "/contact"
     reference = models.CharField(
@@ -21,7 +22,6 @@ class ContactContent(models.Model, ContentContextMixin, DigestMixin):
     def __str__(self) -> str:
         return f"<{self.digest[:10]}...>"
 
-    # noinspection PyUnresolvedReferences
     @classmethod
     def get_context(cls, reference=default_reference) -> dict:
         return cls._get_context(cls.objects.filter(reference=reference))

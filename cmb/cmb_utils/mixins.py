@@ -24,10 +24,10 @@ class PreviewMixin:
 class DigestMixin:
 
     @property
-    # noinspection PyTypeChecker
     def digest(self, trim_len: int = MAX_DIGEST_LEN) -> str:
         inner_text = ""
-        if self.html:
+        if self.html:  # type: ignore
+            self.html: str
             text_filter = HTMLFilterInnerText()
             text_filter.feed(self.html)
             inner_text = text_filter.inner_text
@@ -37,7 +37,6 @@ class DigestMixin:
 class ContentContextMixin:
 
     @classmethod
-    # noinspection PyUnresolvedReferences
     def _get_context(cls, query_set) -> dict:
         all_ordered = query_set.order_by("position")
         sec_1 = all_ordered.filter(position__gt=-1).filter(position__lte=10)

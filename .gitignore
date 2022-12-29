@@ -1,7 +1,10 @@
 # db
 *.sqlite3
 
-/venv
+# virtual environments
+/.venv.*
+
+# python caches
 __pycache__
 
 # django migrations
