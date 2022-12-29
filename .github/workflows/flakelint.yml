@@ -1,4 +1,4 @@
-name: flake_isort_lint
+name: Linter
 
 on: [push]
 
