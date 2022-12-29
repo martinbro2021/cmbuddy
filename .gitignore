@@ -12,7 +12,6 @@ migrations
 
 # collected static files / media
 cmb/static
-cmb/media/**/*
 
 # configs
 cmb/cmb_sample/config.py
