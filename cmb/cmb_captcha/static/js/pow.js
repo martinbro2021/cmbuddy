@@ -51,6 +51,10 @@ let cForm = {
     });
   },
 
+  /**
+   * Returns true if the requirements for the input fields of the form
+   * are satisfied.
+   */
   isValid: function (form) {
     if (!form.checkValidity()) {
       if (form.reportValidity) {

@@ -42,7 +42,10 @@ class CMBCaptcha:
         }
 
     def is_valid(self, uuid: int, captcha: int, msg: str, pow: str) -> bool:
-        # todo doc
+        """
+        Returns true if the captcha has been entered correctly and the proof of work meets the requirements.
+        Raises a ProofOfWorkException if the pow doesn't meet the requirements.
+        """
         self.clean_up()
         if uuid in self.valid_captchas:
             valid_captcha = self.valid_captchas.pop(uuid)[0]
@@ -50,8 +53,11 @@ class CMBCaptcha:
             return captcha == valid_captcha
         return False
 
-    def check_proof_of_work(self, msg, pow) -> None:
-        # todo doc
+    def check_proof_of_work(self, msg: str, pow: str) -> None:
+        """
+        Checks if the hash of (msg+pow) starts with the number of zeros that is stated by
+        proof_of_work_difficulty.
+        """
         sha = sha256((pow + msg).encode("utf-8")).hexdigest()
         if not sha.startswith(self.leading_zeros):
             logger.info(f"pow:{pow}/msg:{msg}/sha:{sha} - the value does not meet the requirements.")
