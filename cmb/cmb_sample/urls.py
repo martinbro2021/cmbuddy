@@ -9,7 +9,8 @@ from cmb_sample.settings import DEBUG, MEDIA_ROOT, MEDIA_URL
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("cmb_home.urls")),
-    path('contact/', include("cmb_contact.urls"))
+    path('contact/', include("cmb_contact.urls")),
+    path('calendar/', include("cmb_calendar.urls"))
 ]
 
 if DEBUG:

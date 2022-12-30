@@ -3,6 +3,7 @@
 
 Remove-Item -Recurse .\cmb\cmb_home\migrations
 Remove-Item -Recurse .\cmb\cmb_contact\migrations
+Remove-Item -Recurse .\cmb\cmb_calendar\migrations
 Remove-Item .\cmb\sample-db.sqlite3
 
 .\.venv.dev\Scripts\Activate.ps1
@@ -12,6 +13,7 @@ python -c 'from django.core.management.utils import get_random_secret_key; print
 
 python .\cmb\manage.py makemigrations cmb_home
 python .\cmb\manage.py makemigrations cmb_contact
+python .\cmb\manage.py makemigrations cmb_calendar
 python .\cmb\manage.py migrate
 python .\cmb\manage.py mockup
 python .\cmb\manage.py createadmin

@@ -11,7 +11,7 @@ Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit ame
 HOME_CONTENT_MOCKUP = {
     "home-about":
     {
-        "html": f"<h2>About</h2><p style='text-align: justify'>{LOREM_IPSUM}</p>",
+        "html": f"<h2>About</h2><p>{LOREM_IPSUM}</p>",
         "warning": "this should raise a warning"
     },
 }

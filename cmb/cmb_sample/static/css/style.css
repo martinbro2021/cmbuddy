@@ -137,12 +137,57 @@ hr {
 #cmb-contact-section .invalid {
   background-color: var(--msg-error-bg);
 }
+
 #cmb-contact-section .valid {
   background-color: var(--msg-success-bg);
 }
+
 #cmb-contact-section input,
 #cmb-contact-section textarea {
   border: 0px !important;
   border-bottom: 2px solid var(--border) !important;
   background-color: var(--input-bg);
+}
+
+/* calendar */
+
+.cmb-switch-year {
+  color: var(--accent);
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.cmb-switch-year a {
+  cursor: pointer;
+  color: var(--accent);
+  padding-left: 16px;
+  padding-right: 16px;
+  text-decoration: none;
+}
+
+#cmb-calendar-entries .cmb-calendar-entry {
+  position: relative;
+  width: 75%;
+}
+
+#cmb-calendar-entries .cmb-calendar-entry:nth-child(2n + 1) {
+  left: 10%;
+}
+
+#cmb-calendar-entries .cmb-calendar-entry:nth-child(3n) {
+  left: 25%;
+}
+
+#cmb-calendar-entries .cmb-calendar-entry:nth-child(5n + 1) {
+  left: 5%;
+}
+
+.cmb-calendar-headline {
+  color: var(--accent);
+  font-size: large;
+  border-bottom: 3px solid var(--accent-opaque);
+}
+
+.cmb-calendar-img {
+  padding: 15px 15px 0px 0Epx;
 }

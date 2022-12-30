@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class CMBContactConfig(AppConfig):
+class CmbCalendarConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'cmb_contact'
-    verbose_name = 'CONTACT'
+    name = 'cmb_calendar'
+    verbose_name = "CALENDAR"

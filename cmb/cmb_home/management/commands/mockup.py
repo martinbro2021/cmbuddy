@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 
+from cmb_calendar.models import CalendarEntry
 from cmb_contact.models import ContactContent
 from cmb_home.mockup import NoMockupException
 from cmb_home.models import (File, HomeContent, Link, MenuEntry, Setting,
@@ -10,7 +11,7 @@ class Command(BaseCommand):
     help = 'Populates DB with some test data'
 
     def handle(self, *args, **options):
-        for cls in (HomeContent, ContactContent, Snippet, File, Link, Setting, MenuEntry):
+        for cls in (HomeContent, ContactContent, Snippet, File, Link, Setting, MenuEntry, CalendarEntry):
             try:
                 if cls.mockup():
                     self.stdout.write(self.style.SUCCESS(

@@ -8,7 +8,7 @@ from django.core.files import File as DjangoFile
 from cmb_utils.misc import to_snake_case_upper
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-AUTO_IMPORT_FROM = ["cmb_contact", "cmb_home"]
+AUTO_IMPORT_FROM = ["cmb_contact", "cmb_home", "cmb_calendar"]
 
 logger = logging.getLogger(__name__)
 
@@ -126,5 +126,23 @@ def mockup_files(cls) -> bool:
                 file_instance.file = DjangoFile(temp, name=file_name)
                 file_instance.save()
             temp.close()
+        return True
+    return False
+
+
+def mockup_calendar_entries(cls) -> bool:
+    """Adds mockup data for the calendar entry model."""
+    mocks = auto_import(cls)
+    if not mocks:
+        raise NoMockupException
+
+    if cls.objects.count() == 0:
+        for _, entry in mocks.items():
+            content = cls()
+            for key, value in entry.items():
+                if not hasattr(content, key):
+                    logger.warning(f"Unknown key: {cls.__name__}.{key}")
+                setattr(content, key, value)
+            content.save()
         return True
     return False

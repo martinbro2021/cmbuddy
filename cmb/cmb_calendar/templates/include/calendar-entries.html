@@ -1,0 +1,25 @@
+<div id="cmb-calendar-entries">
+  {% for c in content %}
+  <!--  -->
+  {% if not c.image %}
+  <div class="w3-container cmb-calendar-entry w3-padding-64">
+    <div class="cmb-calendar-headline">
+      <b>{{ c.date }}</b>
+      {% if c.time %} - {{ c.time }} {% endif %}
+    </div>
+    <div class="w3-content w3-justify">{{c.html | safe}}</div>
+  </div>
+
+  {% else %}
+  <div class="w3-container cmb-calendar-entry w3-padding-64" style="width: 100%; left: 0px" ;>
+    <div class="cmb-calendar-headline">
+      <b>{{ c.date }}</b>
+      {% if c.time %} - {{ c.time }} {% endif %}
+    </div>
+    <img class="w3-content w3-third cmb-calendar-img" src="{{c.image.url}}" />
+    <div class="w3-content w3-justify w3-twothird">{{c.html | safe}}</div>
+  </div>
+  {% endif %}
+  <!--  -->
+  {% endfor %}
+</div>

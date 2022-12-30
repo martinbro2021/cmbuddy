@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.template import loader
 from django.utils.safestring import mark_safe
 
@@ -22,12 +24,12 @@ class PreviewMixin:
 
 
 class DigestMixin:
+    html: Any
 
     @property
     def digest(self, trim_len: int = MAX_DIGEST_LEN) -> str:
         inner_text = ""
-        if self.html:  # type: ignore
-            self.html: str
+        if self.html:
             text_filter = HTMLFilterInnerText()
             text_filter.feed(self.html)
             inner_text = text_filter.inner_text

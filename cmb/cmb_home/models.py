@@ -124,7 +124,7 @@ class File(models.Model):
     identifier = models.CharField(max_length=255, primary_key=True)
     description = models.TextField(max_length=1023, blank=True)
     description_html = models.CharField(max_length=2047, blank=True)
-    file = models.FileField(null=True, blank=True)
+    file = models.FileField(null=True, blank=True, upload_to="home/files")
 
     def save(self, *args, **kwargs) -> None:
         self.description_html = md.convert(self.description)
@@ -135,7 +135,7 @@ class File(models.Model):
         return {
             "files":
                 {file.identifier: {
-                    "url": file.url,
+                    "url": file.file.url,
                     "description": file.description_html,
                 } for file in cls.objects.all()}
         }
@@ -143,7 +143,3 @@ class File(models.Model):
     @ classmethod
     def mockup(cls) -> bool:
         return mockup_files(cls)
-
-    @ property
-    def url(self) -> str:
-        return ("/" + MEDIA_URL + self.file.name) if self.file else ""

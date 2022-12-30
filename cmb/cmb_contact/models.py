@@ -7,7 +7,7 @@ from cmb_utils.mixins import ContentContextMixin, DigestMixin
 
 
 class ContactContent(models.Model, ContentContextMixin, DigestMixin):
-    html = HTMLField(verbose_name="text")  # type: ignore
+    html = HTMLField(verbose_name="text")
     position = models.PositiveIntegerField(default=10, verbose_name="vertical position")
     default_reference = "/contact"
     reference = models.CharField(
