@@ -10,22 +10,15 @@
     {% include "include/dependencies.html" %}
   </head>
   <body>
-    <!--  -->
     {% include "include/sidebar-menu.html" %} {% include "include/background-image.html" %}
-    <!--  -->
     <div class="w3-main" style="margin-left: 40%; height: 100%">
       {% include "include/topbar-menu.html" %}
-      <div class="w3-padding-large" style="min-height: 75">
+      <div class="w3-padding-large cmb-fade-in" style="min-height: 75%">
         {% include "include/open-sidebar-menu.html" %}
         <h1 class="w3-center w3-hide-large w3-hide-medium">{{ snippets.calendar_title }}</h1>
-
-        <h1 class="w3-center cmb-switch-year">
-          <a href="{{links.prev_year.url}}"> ˂ </a>
-          {{ links.curr_year.value }}
-          <a href="{{links.next_year.url}}"> ˃ </a>
-        </h1>
-
-        {% include "include/calendar-entries.html" %}
+        {% include "include/calendar-switch.html" %} {% include "include/calendar-entries.html" %}
+        <!--  -->
+        {% if content.count > 3 %} {% include "include/calendar-switch.html" %} {% endif %}
       </div>
       <footer class="w3-container w3-center w3-xlarge">{% include "include/social-media-sample.html" %}</footer>
     </div>

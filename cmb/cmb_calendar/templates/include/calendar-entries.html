@@ -1,4 +1,6 @@
 <div id="cmb-calendar-entries">
+  {% if content.count != 0 %}
+  <!--  -->
   {% for c in content %}
   <!--  -->
   {% if not c.image %}
@@ -22,4 +24,8 @@
   {% endif %}
   <!--  -->
   {% endfor %}
+  <!--  -->
+  {% else %}
+  <p class="w3-center w3-xlarge">{{snippets.calendar_no_entries}}</p>
+  {% endif %}
 </div>

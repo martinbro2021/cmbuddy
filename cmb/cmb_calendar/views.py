@@ -1,14 +1,20 @@
 from datetime import date
 
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect
 from django.template import loader
 
 from cmb_calendar.models import CalendarEntry
 from cmb_home.misc import get_context
 
+MAX_YEAR = date.today().year + 10
+MIN_YEAR = date.today().year - 10
+
 
 def calendar(request: HttpRequest, year) -> HttpResponse:
+    if not MIN_YEAR <= year <= MAX_YEAR:
+        return HttpResponseNotFound()
+
     template = loader.get_template('calendar.html')
     context = get_context(CalendarEntry, year=year)
     context["links"] |= {
@@ -17,11 +23,11 @@ def calendar(request: HttpRequest, year) -> HttpResponse:
             "url": f"/calendar/{year}"},
         "next_year": {
             "value": year+1,
-            "url": f"/calendar/{year+1}",
+            "url": f"/calendar/{min(year + 1, MAX_YEAR)}",
         },
         "prev_year": {
             "value": year-1,
-            "url": f"/calendar/{year-1}",
+            "url": f"/calendar/{max(year - 1, MIN_YEAR)}",
         }
     }
     return HttpResponse(template.render(context, request))

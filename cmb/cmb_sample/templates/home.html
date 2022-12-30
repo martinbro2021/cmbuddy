@@ -10,15 +10,11 @@
     {% include "include/dependencies.html" %}
   </head>
   <body>
-    <!--  -->
     {% include "include/sidebar-menu.html" %} {% include "include/background-image.html" %}
-    <!--  -->
     <div class="w3-main" style="margin-left: 40%; height: 100%">
       {% include "include/topbar-menu.html" %}
-      <div class="w3-padding-large" style="min-height: 75%">
-        {% include "include/open-sidebar-menu.html" %}
-        <!--  -->
-        {% include "include/header-home.html" %}
+      <div class="w3-padding-large cmb-fade-in" style="min-height: 75%">
+        {% include "include/open-sidebar-menu.html" %} {% include "include/header-home.html" %}
         <hr />
         <div class="w3-content w3-justify">{% for c in content.all %} {{c.html | safe}} {% endfor %}</div>
       </div>

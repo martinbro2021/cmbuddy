@@ -74,6 +74,31 @@ hr {
 
 /* content management buddy */
 
+.cmb-grayscale-85 {
+  -webkit-filter: grayscale(85%); /*WebKit*/
+  filter: grayscale(85%);
+  opacity: 60%;
+}
+
+.cmb-grayscale-50 {
+  -webkit-filter: grayscale(50%); /*WebKit*/
+  filter: grayscale(50%);
+  opacity: 90%;
+}
+
+@keyframes cmb-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.cmb-fade-in {
+  animation: cmb-fade-in 1s;
+}
+
 /* menu */
 #cmb-menu-topbar {
   color: var(--menu-item);
@@ -121,18 +146,6 @@ hr {
   color: var(--menu-item-hover);
 }
 
-.cmb-grayscale-85 {
-  -webkit-filter: grayscale(85%); /*WebKit*/
-  filter: grayscale(85%);
-  opacity: 60%;
-}
-
-.cmb-grayscale-50 {
-  -webkit-filter: grayscale(50%); /*WebKit*/
-  filter: grayscale(50%);
-  opacity: 90%;
-}
-
 /* contact section */
 #cmb-contact-section .invalid {
   background-color: var(--msg-error-bg);
@@ -166,6 +179,7 @@ hr {
 }
 
 #cmb-calendar-entries .cmb-calendar-entry {
+  animation: fadeIn 1s;
   position: relative;
   width: 75%;
 }
@@ -189,5 +203,5 @@ hr {
 }
 
 .cmb-calendar-img {
-  padding: 15px 15px 0px 0Epx;
+  padding: 16px 16px 0px 0px;
 }

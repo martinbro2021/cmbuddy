@@ -12,6 +12,7 @@ MENU_ENTRY_MOCKUP = {
 
 SNIPPET_MOCKUP = {
     "calendar_title": "Calendar",
+    "calendar_no_entries": "No calendar entries"
 }
 
 
