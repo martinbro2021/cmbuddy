@@ -1,3 +1,3 @@
 # sort imports and run linter
-isort ./cmb
+isort .
 flake8
