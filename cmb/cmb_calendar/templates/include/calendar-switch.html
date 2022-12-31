@@ -1,5 +1,11 @@
 <h1 class="w3-center cmb-switch-year">
+  {% if links.prev_year.value != links.curr_year.value %}
   <a href="{{links.prev_year.url}}"> ˂ </a>
+  {% endif %}
+  <!--  -->
   {{ links.curr_year.value }}
+  <!--  -->
+  {% if links.next_year.value != links.curr_year.value %}
   <a href="{{links.next_year.url}}"> ˃ </a>
+  {% endif %}
 </h1>
