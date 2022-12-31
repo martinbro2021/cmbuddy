@@ -22,11 +22,11 @@ def calendar(request: HttpRequest, year) -> HttpResponse:
             "value": year,
             "url": f"/calendar/{year}"},
         "next_year": {
-            "value": min(year+1, MAX_YEAR),
+            "value": min(year + 1, MAX_YEAR),
             "url": f"/calendar/{min(year + 1, MAX_YEAR)}",
         },
         "prev_year": {
-            "value": max(year-1, MIN_YEAR),
+            "value": max(year - 1, MIN_YEAR),
             "url": f"/calendar/{max(year - 1, MIN_YEAR)}",
         }
     }
